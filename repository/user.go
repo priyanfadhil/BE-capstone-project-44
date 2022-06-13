@@ -12,11 +12,6 @@ type userRepositoryMysqlLayer struct {
 	DB *gorm.DB
 }
 
-// GetOneUserByName implements domain.AdapterUserRepository
-func (*userRepositoryMysqlLayer) GetOneUserByName(name string) (user model.User, err error) {
-	panic("unimplemented")
-}
-
 func (r *userRepositoryMysqlLayer) CreateUsers(user model.User) error {
 	res := r.DB.Create(&user)
 	if res.RowsAffected < 1 {
