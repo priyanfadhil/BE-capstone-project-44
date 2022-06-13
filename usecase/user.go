@@ -2,10 +2,12 @@ package usecase
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/priyanfadhil/BE-capstone-project-44/config"
 	"github.com/priyanfadhil/BE-capstone-project-44/domain"
 	"github.com/priyanfadhil/BE-capstone-project-44/model"
+	"github.com/priyanfadhil/BE-capstone-project-44/helper"
 )
 
 type svcUser struct {
@@ -42,4 +44,19 @@ func NewUser(repo domain.AdapterUserRepository, c config.Config) domain.AdapterU
 		repo: repo,
 		c:    c,
 	}
+}
+
+func (s *svcUser) LoginUser(name, password string) (string, int) {
+	user, _ := s.repo.GetOneUserByName(name)
+
+	if (user.Password != password) || (user == model.User{}) {
+		return "", http.StatusUnauthorized
+	}
+
+	token, err := helper.CreateToken(user.ID, user.Email, s.c.JWT_KEY)
+	if err != nil {
+		return "", http.StatusInternalServerError
+	}
+
+	return token, http.StatusOK
 }

@@ -9,7 +9,7 @@ type AdapterUserRepository interface {
 	CreateUsers(user model.User) error
 	GetAllUsers() []model.User
 	GetOneUserByID(id int) (user model.User, err error)
-	GetOneUserByEmail(email string) (user model.User, err error)
+	GetOneUserByName(name string) (user model.User, err error)
 	UpdateOneUserByID(id int, user model.User) error
 	DeleteUserByID(id int) error
 }
@@ -20,5 +20,7 @@ type AdapterUser interface {
 	UpdateUser(id, idToken int, user model.User) error
 	GetAllUsers() []model.User
 	GetUserByID(id int) (model.User, error)
+	LoginUser(name, password string) (string, int)
 	DeleteUserByID(id int) error
 }
+
