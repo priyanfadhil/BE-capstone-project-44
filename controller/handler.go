@@ -22,20 +22,15 @@ func UserGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcUser,
 	}
 
-	e.GET("/health", func(c echo.Context) error {
-		return c.JSON(200, map[string]string{
-			"message": "your request awesome",
-		})
-	})
-
 	apiUser := e.Group("/users",
 		middleware.Logger(),
 		middleware.CORS(),
-		//m.APIKEYMiddleware,
 	)
-	apiUser.GET("", cont.GetUsersController)
-	apiUser.GET("/:id", cont.GetUserController)
-	apiUser.PUT("/:id", cont.UpdateUserController)
-	apiUser.DELETE("/:id", cont.DeleteUserController)
+
+	apiUser.GET("", cont.GetUsersController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiUser.POST("/login", cont.LoginUserController)
+	apiUser.GET("/:id", cont.GetUserController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiUser.PUT("/:id", cont.UpdateUserController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiUser.DELETE("/:id", cont.DeleteUserController, middleware.JWT([]byte(conf.JWT_KEY)))
 	apiUser.POST("", cont.CreateUserController)
 }

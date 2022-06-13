@@ -107,21 +107,21 @@ func (ce *EchoController) LoginUserController(c echo.Context) error {
 
 	c.Bind(&userLogin)
 
-	token, statusCode := ce.svc.LoginUser(userLogin["email"].(string), userLogin["password"].(string))
-	switch (statusCode) {
+	token, statusCode := ce.svc.LoginUser(userLogin["name"].(string), userLogin["password"].(string))
+	switch statusCode {
 	case http.StatusUnauthorized:
 		return c.JSONPretty(http.StatusUnauthorized, map[string]interface{}{
-			"messages": "email atau password salah",
+			"messages": "name atau password salah",
 		}, "  ")
 
 	case http.StatusInternalServerError:
-			return c.JSONPretty(http.StatusInternalServerError, map[string]interface{}{
+		return c.JSONPretty(http.StatusInternalServerError, map[string]interface{}{
 			"messages": "internal",
 		}, "  ")
 	}
 
 	return c.JSONPretty(http.StatusOK, map[string]interface{}{
 		"messages": "success",
-		"token": token,
+		"token":    token,
 	}, "  ")
 }

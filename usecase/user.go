@@ -6,8 +6,8 @@ import (
 
 	"github.com/priyanfadhil/BE-capstone-project-44/config"
 	"github.com/priyanfadhil/BE-capstone-project-44/domain"
-	"github.com/priyanfadhil/BE-capstone-project-44/model"
 	"github.com/priyanfadhil/BE-capstone-project-44/helper"
+	"github.com/priyanfadhil/BE-capstone-project-44/model"
 )
 
 type svcUser struct {
@@ -49,7 +49,7 @@ func NewUser(repo domain.AdapterUserRepository, c config.Config) domain.AdapterU
 func (s *svcUser) LoginUser(name, password string) (string, int) {
 	user, _ := s.repo.GetOneUserByName(name)
 
-	if (user.Password != password) || (user == model.User{}) {
+	if user.Password != password {
 		return "", http.StatusUnauthorized
 	}
 
