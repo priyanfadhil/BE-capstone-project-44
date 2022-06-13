@@ -20,5 +20,7 @@ type AdapterUser interface {
 	UpdateUser(id, idToken int, user model.User) error
 	GetAllUsers() []model.User
 	GetUserByID(id int) (model.User, error)
+	LoginUser(name, password string) (string, int)
 	DeleteUserByID(id int) error
 }
+
