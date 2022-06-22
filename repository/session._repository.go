@@ -8,11 +8,11 @@ import (
 	"gorm.io/gorm"
 )
 
-type sessionRepositoryMysqlLayer struct {
+type SessionRepositoryMysqlLayer struct {
 	DB *gorm.DB
 }
 
-func (r *sessionRepositoryMysqlLayer) CreateSession(session model.Session) error {
+func (r *SessionRepositoryMysqlLayer) CreateSession(session model.Session) error {
 	res := r.DB.Create(&session)
 	if res.RowsAffected < 1 {
 		return fmt.Errorf("error insert")
@@ -21,7 +21,7 @@ func (r *sessionRepositoryMysqlLayer) CreateSession(session model.Session) error
 	return nil
 }
 
-func (r *sessionRepositoryMysqlLayer) GetAllSession() []model.Session {
+func (r *SessionRepositoryMysqlLayer) GetAllSession() []model.Session {
 	sessions := []model.Session{}
 	r.DB.Find(&sessions)
 	//r.DB.Model(&model.User{}).Association("rents").Find(&users)
@@ -29,7 +29,7 @@ func (r *sessionRepositoryMysqlLayer) GetAllSession() []model.Session {
 	return sessions
 }
 
-func (r *sessionRepositoryMysqlLayer) GetOneSessionByID(id int) (session model.Session, err error) {
+func (r *SessionRepositoryMysqlLayer) GetOneSessionByID(id int) (session model.Session, err error) {
 	res := r.DB.Where("id = ?", id).Find(&session)
 	if res.RowsAffected < 1 {
 		err = fmt.Errorf("not found")
@@ -38,7 +38,7 @@ func (r *sessionRepositoryMysqlLayer) GetOneSessionByID(id int) (session model.S
 	return
 }
 
-func (r *sessionRepositoryMysqlLayer) UpdateOneSessionByID(id int, session model.Session) error {
+func (r *SessionRepositoryMysqlLayer) UpdateOneSessionByID(id int, session model.Session) error {
 	res := r.DB.Where("id = ?", id).UpdateColumns(&session)
 	if res.RowsAffected < 1 {
 		return fmt.Errorf("error update")
@@ -47,7 +47,7 @@ func (r *sessionRepositoryMysqlLayer) UpdateOneSessionByID(id int, session model
 	return nil
 }
 
-func (r *sessionRepositoryMysqlLayer) DeleteSessionByID(id int) error {
+func (r *SessionRepositoryMysqlLayer) DeleteSessionByID(id int) error {
 	res := r.DB.Delete(&model.Session{
 		ID: id,
 	})
@@ -60,7 +60,7 @@ func (r *sessionRepositoryMysqlLayer) DeleteSessionByID(id int) error {
 }
 
 func SessionMysqlRepository(db *gorm.DB) domain.AdapterSessionRepository {
-	return &sessionRepositoryMysqlLayer{
+	return &SessionRepositoryMysqlLayer{
 		DB: db,
 	}
 }
