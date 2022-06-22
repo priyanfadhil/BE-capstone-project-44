@@ -59,7 +59,7 @@ func (r *BookingRepositoryMysqlLayer) DeleteBookingByID(id int) error {
 	return nil
 }
 
-func BookingMysqlRepository(db *gorm.DB) domain.AdapterBookingRepository {
+func NewBookingMysqlRepository(db *gorm.DB) domain.AdapterBookingRepository {
 	return &BookingRepositoryMysqlLayer{
 		DB: db,
 	}
