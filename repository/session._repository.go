@@ -59,7 +59,7 @@ func (r *SessionRepositoryMysqlLayer) DeleteSessionByID(id int) error {
 	return nil
 }
 
-func SessionMysqlRepository(db *gorm.DB) domain.AdapterSessionRepository {
+func NewSessionMysqlRepository(db *gorm.DB) domain.AdapterSessionRepository {
 	return &SessionRepositoryMysqlLayer{
 		DB: db,
 	}
