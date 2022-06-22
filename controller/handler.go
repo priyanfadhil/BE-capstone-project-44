@@ -48,7 +48,7 @@ func BookingGroupAPI(e *echo.Echo, conf config.Config) {
 
 	svcBooking := usecase.NewBooking(repo, conf)
 
-	cont := EchoController{
+	cont := EchoControllerBooking{
 		svc: svcBooking,
 	}
 

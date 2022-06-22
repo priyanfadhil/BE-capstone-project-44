@@ -22,7 +22,7 @@ func (s *svcBooking) UpdateBooking(id int, booking model.Booking) error {
 	return s.repo.UpdateOneBookingByID(id, booking)
 }
 
-func (s *svcBooking) GetAllBooking() []model.Booking {
+func (s *svcBooking) GetAllBookings() []model.Booking {
 	return s.repo.GetAllBookings()
 }
 
