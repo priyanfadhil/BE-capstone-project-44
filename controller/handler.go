@@ -39,3 +39,33 @@ func UserGroupAPI(e *echo.Echo, conf config.Config) {
 	apiUser.DELETE("/:id", cont.DeleteUserController)
 	apiUser.POST("", cont.CreateUserController)
 }
+
+func SessionGroupAPI(e *echo.Echo, conf config.Config) {
+
+	db := database.InitDB(conf)
+
+	repo := repository.NewSessionMysqlRepository(db)
+
+	svcSession := usecase.NewSession(repo, conf)
+
+	cont := EchoControllerSession{
+		svc: svcSession,
+	}
+
+	e.GET("/health", func(c echo.Context) error {
+		return c.JSON(200, map[string]string{
+			"message": "your request awesome",
+		})
+	})
+
+	apiSession := e.Group("/session",
+		middleware.Logger(),
+		middleware.CORS(),
+		//m.APIKEYMiddleware,
+	)
+	apiSession.GET("", cont.GetSessionsController)
+	apiSession.GET("/:id", cont.GetSessionController)
+	apiSession.PUT("/:id", cont.UpdateSessionController)
+	apiSession.DELETE("/:id", cont.DeleteSessionController)
+	apiSession.POST("", cont.CreateSessionController)
+}
