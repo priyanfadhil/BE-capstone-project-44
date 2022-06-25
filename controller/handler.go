@@ -71,7 +71,7 @@ func VaccineStatusGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcVaccineStatus,
 	}
 
-	apiVaccineStatus := e.Group("/session",
+	apiVaccineStatus := e.Group("/vaccinestatus",
 		middleware.Logger(),
 		middleware.CORS(),
 		//m.APIKEYMiddleware,
@@ -96,7 +96,7 @@ func UserAddressGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcUserAddress,
 	}
 
-	apiUserAddress := e.Group("/session",
+	apiUserAddress := e.Group("/address",
 		middleware.Logger(),
 		middleware.CORS(),
 		//m.APIKEYMiddleware,
@@ -157,4 +157,29 @@ func SessionGroupAPI(e *echo.Echo, conf config.Config) {
 	apiSession.PUT("/:id", cont.UpdateSessionController)
 	apiSession.DELETE("/:id", cont.DeleteSessionController)
 	apiSession.POST("", cont.CreateSessionController)
+}
+
+func VaccinationLocationGroupAPI(e *echo.Echo, conf config.Config) {
+
+	db := database.InitDB(conf)
+
+	repo := repository.VaccinationLocationMysqlRepository(db)
+
+	svcVaccinationLocation := usecase.NewVaccinationLocation(repo, conf)
+
+	cont := VaccinationLocationController{
+		svc: svcVaccinationLocation,
+	}
+
+	apiVaccinationLocation := e.Group("/vaccinationlocation",
+		middleware.Logger(),
+		middleware.CORS(),
+		//m.APIKEYMiddleware,
+	)
+
+	apiVaccinationLocation.GET("", cont.GetVaccinationLocationsController)
+	apiVaccinationLocation.GET("/:id", cont.GetVaccinationLocationController)
+	apiVaccinationLocation.PUT("/:id", cont.UpdateVaccinationLocationController)
+	apiVaccinationLocation.DELETE("/:id", cont.DeleteVaccinationLocationController)
+	apiVaccinationLocation.POST("", cont.CreateVaccinationLocationController)
 }
