@@ -32,6 +32,8 @@ func InitDB(conf config.Config) *gorm.DB {
 	DB.AutoMigrate(&model.Session{})
 	DB.AutoMigrate(&model.VaccineStatus{})
 	DB.AutoMigrate(&model.UserAddress{})
+	DB.AutoMigrate(&model.VaccinationLocation{})
+	DB.AutoMigrate(&model.Vaccine{})
 
 	return DB
 }

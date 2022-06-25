@@ -183,3 +183,28 @@ func VaccinationLocationGroupAPI(e *echo.Echo, conf config.Config) {
 	apiVaccinationLocation.DELETE("/:id", cont.DeleteVaccinationLocationController)
 	apiVaccinationLocation.POST("", cont.CreateVaccinationLocationController)
 }
+
+func VaccineGroupAPI(e *echo.Echo, conf config.Config) {
+
+	db := database.InitDB(conf)
+
+	repo := repository.NewVaccineMysqlRepository(db)
+
+	svcVaccine := usecase.NewVaccine(repo, conf)
+
+	cont := VaccineController{
+		svc: svcVaccine,
+	}
+
+	apiVaccine := e.Group("/vaccinestatus",
+		middleware.Logger(),
+		middleware.CORS(),
+		//m.APIKEYMiddleware,
+	)
+
+	apiVaccine.GET("", cont.GetAllVaccineController)
+	apiVaccine.GET("/:id", cont.GetVaccineController)
+	apiVaccine.PUT("/:id", cont.UpdateVaccineController)
+	apiVaccine.DELETE("/:id", cont.DeleteVaccineController)
+	apiVaccine.POST("", cont.CreateVaccineController)
+}
