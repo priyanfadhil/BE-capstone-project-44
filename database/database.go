@@ -26,7 +26,7 @@ func InitDB(conf config.Config) *gorm.DB {
 		fmt.Println("error open conection : ", err)
 	}
 
-	DB.AutoMigrate(&model.Vaccine{})
+	DB.AutoMigrate(&model.VaccineStatus{})
 
 	return DB
 }
