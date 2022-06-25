@@ -27,7 +27,7 @@ func (ce *EchoControllerBooking) CreateBookingController(c echo.Context) error {
 
 	return c.JSON(http.StatusCreated, map[string]interface{}{
 		"messages": "success",
-		"bookings":    booking,
+		"bookings": booking,
 	})
 }
 
@@ -46,7 +46,7 @@ func (ce *EchoControllerBooking) UpdateBookingController(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"messages":   "edited",
+		"messages": "edited",
 	})
 }
 
@@ -83,7 +83,7 @@ func (ce *EchoControllerBooking) GetBookingController(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"messages": "success",
-		"bookings":    res,
+		"bookings": res,
 	})
 }
 
@@ -92,8 +92,6 @@ func (ce *EchoControllerBooking) GetBookingsController(c echo.Context) error {
 
 	return c.JSONPretty(http.StatusOK, map[string]interface{}{
 		"messages": "success",
-		"bookings":    booking,
+		"bookings": booking,
 	}, "  ")
 }
-
-
