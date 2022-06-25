@@ -58,3 +58,33 @@ func FamilyMemberGroupAPI(e *echo.Echo, conf config.Config) {
 	apiFamilyMember.DELETE("/:id", cont.DeleteFamilyMemberController, middleware.JWT([]byte(conf.JWT_KEY)))
 	apiFamilyMember.POST("", cont.CreateFamilyMemberController, middleware.JWT([]byte(conf.JWT_KEY)))
 }
+
+func BookingGroupAPI(e *echo.Echo, conf config.Config) {
+
+	db := database.InitDB(conf)
+
+	repo := repository.NewBookingMysqlRepository(db)
+
+	svcBooking := usecase.NewBooking(repo, conf)
+
+	cont := EchoControllerBooking{
+		svc: svcBooking,
+	}
+
+	e.GET("/health", func(c echo.Context) error {
+		return c.JSON(200, map[string]string{
+			"message": "your request awesome",
+		})
+	})
+
+	apiBooking := e.Group("/booking",
+		middleware.Logger(),
+		middleware.CORS(),
+		//m.APIKEYMiddleware,
+	)
+	apiBooking.GET("", cont.GetBookingsController)
+	apiBooking.GET("/:id", cont.GetBookingController)
+	apiBooking.PUT("/:id", cont.UpdateBookingController)
+	apiBooking.DELETE("/:id", cont.DeleteBookingController)
+	apiBooking.POST("", cont.CreateBookingController)
+}
