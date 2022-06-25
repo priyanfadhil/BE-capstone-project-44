@@ -75,10 +75,7 @@ func (ce *UserController) DeleteUserController(c echo.Context) error {
 func (ce *UserController) GetUserController(c echo.Context) error {
 	fmt.Println("eksekusi handler")
 	id := c.Param("id")
-	intID, err := strconv.Atoi(id)
-	if err != nil {
-
-	}
+	intID, _ := strconv.Atoi(id)
 
 	res, err := ce.svc.GetUserByID(intID)
 	if err != nil {

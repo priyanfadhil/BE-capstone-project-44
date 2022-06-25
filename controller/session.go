@@ -69,10 +69,7 @@ func (ce *EchoControllerSession) DeleteSessionController(c echo.Context) error {
 func (ce *EchoControllerSession) GetSessionController(c echo.Context) error {
 	fmt.Println("eksekusi handler")
 	id := c.Param("id")
-	intID, err := strconv.Atoi(id)
-	if err != nil {
-
-	}
+	intID, _ := strconv.Atoi(id)
 
 	res, err := ce.svc.GetSessionByID(intID)
 	if err != nil {

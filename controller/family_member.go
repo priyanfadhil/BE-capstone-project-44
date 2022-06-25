@@ -75,10 +75,7 @@ func (ce *FamilyMemberController) DeleteFamilyMemberController(c echo.Context) e
 func (ce *FamilyMemberController) GetFamilyMemberController(c echo.Context) error {
 	fmt.Println("eksekusi handler")
 	id := c.Param("id")
-	intID, err := strconv.Atoi(id)
-	if err != nil {
-
-	}
+	intID, _ := strconv.Atoi(id)
 
 	res, err := ce.svc.GetFamilyMemberByID(intID)
 	if err != nil {
