@@ -18,6 +18,7 @@ func main() {
 	rest.UserAddressGroupAPI(e, config)
 	rest.VaccinationLocationGroupAPI(e, config)
 	rest.VaccineGroupAPI(e, config)
+	rest.AdminGroupAPI(e, config)
 
 	e.Logger.Fatal(e.Start(config.SERVER_ADDRESS))
 }

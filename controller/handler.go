@@ -208,3 +208,27 @@ func VaccineGroupAPI(e *echo.Echo, conf config.Config) {
 	apiVaccine.DELETE("/:id", cont.DeleteVaccineController)
 	apiVaccine.POST("", cont.CreateVaccineController)
 }
+
+func AdminGroupAPI(e *echo.Echo, conf config.Config) {
+
+	db := database.InitDB(conf)
+
+	repo := repository.NewAdminMysqlRepository(db)
+
+	svcAdmin := usecase.NewAdmin(repo, conf)
+
+	cont := AdminController{
+		svc: svcAdmin,
+	}
+
+	apiAdmin := e.Group("/vaccinestatus",
+		middleware.Logger(),
+		middleware.CORS(),
+	)
+
+	apiAdmin.GET("", cont.GetAllAdminController)
+	apiAdmin.GET("/:id", cont.GetAdminController)
+	apiAdmin.PUT("/:id", cont.UpdateAdminController)
+	apiAdmin.DELETE("/:id", cont.DeleteAdminController)
+	apiAdmin.POST("", cont.CreateAdminController)
+}
