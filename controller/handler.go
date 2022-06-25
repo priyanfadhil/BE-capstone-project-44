@@ -10,27 +10,26 @@ import (
 	"github.com/priyanfadhil/BE-capstone-project-44/usecase"
 )
 
-func UserGroupAPI(e *echo.Echo, conf config.Config) {
+func VaccineGroupAPI(e *echo.Echo, conf config.Config) {
 
 	db := database.InitDB(conf)
 
-	repo := repository.UserMysqlRepository(db)
+	repo := repository.VaccineMysqlRepository(db)
 
-	svcUser := usecase.NewUser(repo, conf)
+	svcVaccine := usecase.NewVaccine(repo, conf)
 
 	cont := EchoController{
-		svc: svcUser,
+		svc: svcVaccine,
 	}
 
-	apiUser := e.Group("/users",
+	apiVaccine := e.Group("/vaccine",
 		middleware.Logger(),
 		middleware.CORS(),
 	)
 
-	apiUser.GET("", cont.GetUsersController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiUser.POST("/login", cont.LoginUserController)
-	apiUser.GET("/:id", cont.GetUserController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiUser.PUT("/:id", cont.UpdateUserController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiUser.DELETE("/:id", cont.DeleteUserController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiUser.POST("", cont.CreateUserController)
+	apiVaccine.GET("", cont.GetVaccineController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccine.GET("/:id", cont.GetVaccineController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccine.PUT("/:id", cont.UpdateVaccineController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccine.DELETE("/:id", cont.DeleteVaccineController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccine.POST("", cont.CreateVaccineController)
 }
