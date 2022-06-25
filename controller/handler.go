@@ -10,26 +10,26 @@ import (
 	"github.com/priyanfadhil/BE-capstone-project-44/usecase"
 )
 
-func VaccineGroupAPI(e *echo.Echo, conf config.Config) {
+func VaccineStatusGroupAPI(e *echo.Echo, conf config.Config) {
 
 	db := database.InitDB(conf)
 
-	repo := repository.VaccineMysqlRepository(db)
+	repo := repository.VaccineStatusMysqlRepository(db)
 
-	svcVaccine := usecase.NewVaccine(repo, conf)
+	svcVaccineStatus := usecase.NewVaccineStatus(repo, conf)
 
 	cont := EchoController{
-		svc: svcVaccine,
+		svc: svcVaccineStatus,
 	}
 
-	apiVaccine := e.Group("/vaccine",
+	apiVaccineStatus := e.Group("/vaccinestatus",
 		middleware.Logger(),
 		middleware.CORS(),
 	)
 
-	apiVaccine.GET("", cont.GetVaccineController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiVaccine.GET("/:id", cont.GetVaccineController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiVaccine.PUT("/:id", cont.UpdateVaccineController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiVaccine.DELETE("/:id", cont.DeleteVaccineController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiVaccine.POST("", cont.CreateVaccineController)
+	apiVaccineStatus.GET("", cont.GetVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccineStatus.GET("/:id", cont.GetVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccineStatus.PUT("/:id", cont.UpdateVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccineStatus.DELETE("/:id", cont.DeleteVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccineStatus.POST("", cont.CreateVaccineStatusController)
 }
