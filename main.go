@@ -10,7 +10,7 @@ func main() {
 	config := c.InitConfiguration()
 	e := echo.New()
 
-	rest.VaccineGroupAPI(e, config)
+	rest.VaccineStatusGroupAPI(e, config)
 
 	e.Logger.Fatal(e.Start(config.SERVER_ADDRESS))
 }
