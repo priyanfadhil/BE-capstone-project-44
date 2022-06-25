@@ -66,7 +66,7 @@ func (ce *EchoControllerVaccine) DeleteVaccineController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoControllerVaccine) GetVaccinerController(c echo.Context) error {
+func (ce *EchoControllerVaccine) GetVaccineController(c echo.Context) error {
 	fmt.Println("eksekusi handler")
 	id := c.Param("id")
 	intID, err := strconv.Atoi(id)
