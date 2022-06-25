@@ -6,7 +6,7 @@ import (
 
 	"github.com/priyanfadhil/BE-capstone-project-44/config"
 	"github.com/priyanfadhil/BE-capstone-project-44/domain"
-	"github.com/priyanfadhil/BE-capstone-project-44/helper"
+	"github.com/priyanfadhil/BE-capstone-project-44/middleware"
 	"github.com/priyanfadhil/BE-capstone-project-44/model"
 )
 
@@ -39,13 +39,6 @@ func (s *svcUser) DeleteUserByID(id int) error {
 	return s.repo.DeleteUserByID(id)
 }
 
-func NewUser(repo domain.AdapterUserRepository, c config.Config) domain.AdapterUser {
-	return &svcUser{
-		repo: repo,
-		c:    c,
-	}
-}
-
 func (s *svcUser) LoginUser(name, password string) (string, int) {
 	user, _ := s.repo.GetOneUserByName(name)
 
@@ -53,10 +46,17 @@ func (s *svcUser) LoginUser(name, password string) (string, int) {
 		return "", http.StatusUnauthorized
 	}
 
-	token, err := helper.CreateToken(user.ID, user.Email, s.c.JWT_KEY)
+	token, err := middleware.CreateToken(user.ID, user.Email, s.c.JWT_KEY)
 	if err != nil {
 		return "", http.StatusInternalServerError
 	}
 
 	return token, http.StatusOK
+}
+
+func User(repo domain.AdapterUserRepository, c config.Config) domain.AdapterUser {
+	return &svcUser{
+		repo: repo,
+		c:    c,
+	}
 }

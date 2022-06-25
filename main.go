@@ -11,6 +11,7 @@ func main() {
 	e := echo.New()
 
 	rest.UserGroupAPI(e, config)
+	rest.FamilyMemberGroupAPI(e, config)
 
 	e.Logger.Fatal(e.Start(config.SERVER_ADDRESS))
 }

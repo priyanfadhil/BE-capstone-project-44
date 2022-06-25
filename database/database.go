@@ -27,6 +27,7 @@ func InitDB(conf config.Config) *gorm.DB {
 	}
 
 	DB.AutoMigrate(&model.User{})
+	DB.AutoMigrate(&model.FamilyMember{})
 
 	return DB
 }

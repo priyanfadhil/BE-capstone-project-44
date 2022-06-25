@@ -11,11 +11,11 @@ import (
 	"github.com/priyanfadhil/BE-capstone-project-44/model"
 )
 
-type EchoController struct {
+type UserController struct {
 	svc domain.AdapterUser
 }
 
-func (ce *EchoController) CreateUserController(c echo.Context) error {
+func (ce *UserController) CreateUserController(c echo.Context) error {
 	user := model.User{}
 	c.Bind(&user)
 
@@ -32,7 +32,7 @@ func (ce *EchoController) CreateUserController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoController) UpdateUserController(c echo.Context) error {
+func (ce *UserController) UpdateUserController(c echo.Context) error {
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
 
@@ -56,7 +56,7 @@ func (ce *EchoController) UpdateUserController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoController) DeleteUserController(c echo.Context) error {
+func (ce *UserController) DeleteUserController(c echo.Context) error {
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
 
@@ -72,7 +72,7 @@ func (ce *EchoController) DeleteUserController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoController) GetUserController(c echo.Context) error {
+func (ce *UserController) GetUserController(c echo.Context) error {
 	fmt.Println("eksekusi handler")
 	id := c.Param("id")
 	intID, err := strconv.Atoi(id)
@@ -93,7 +93,7 @@ func (ce *EchoController) GetUserController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoController) GetUsersController(c echo.Context) error {
+func (ce *UserController) GetUsersController(c echo.Context) error {
 	users := ce.svc.GetAllUsers()
 
 	return c.JSONPretty(http.StatusOK, map[string]interface{}{
@@ -102,7 +102,7 @@ func (ce *EchoController) GetUsersController(c echo.Context) error {
 	}, "  ")
 }
 
-func (ce *EchoController) LoginUserController(c echo.Context) error {
+func (ce *UserController) LoginUserController(c echo.Context) error {
 	userLogin := make(map[string]interface{})
 
 	c.Bind(&userLogin)
