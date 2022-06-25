@@ -96,12 +96,6 @@ func SessionGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcSession,
 	}
 
-	e.GET("/health", func(c echo.Context) error {
-		return c.JSON(200, map[string]string{
-			"message": "your request awesome",
-		})
-	})
-
 	apiSession := e.Group("/session",
 		middleware.Logger(),
 		middleware.CORS(),
