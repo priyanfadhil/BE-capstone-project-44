@@ -12,6 +12,7 @@ func main() {
 
 	rest.UserGroupAPI(e, config)
 	rest.FamilyMemberGroupAPI(e, config)
+	rest.BookingGroupAPI(e, config)
 
 	e.Logger.Fatal(e.Start(config.SERVER_ADDRESS))
 }

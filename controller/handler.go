@@ -71,12 +71,6 @@ func BookingGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcBooking,
 	}
 
-	e.GET("/health", func(c echo.Context) error {
-		return c.JSON(200, map[string]string{
-			"message": "your request awesome",
-		})
-	})
-
 	apiBooking := e.Group("/booking",
 		middleware.Logger(),
 		middleware.CORS(),
