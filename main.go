@@ -15,6 +15,7 @@ func main() {
 	rest.BookingGroupAPI(e, config)
 	rest.SessionGroupAPI(e, config)
 	rest.VaccineStatusGroupAPI(e, config)
+	rest.UserAddressGroupAPI(e, config)
 
 	e.Logger.Fatal(e.Start(config.SERVER_ADDRESS))
 }

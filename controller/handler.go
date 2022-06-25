@@ -77,11 +77,36 @@ func VaccineStatusGroupAPI(e *echo.Echo, conf config.Config) {
 		//m.APIKEYMiddleware,
 	)
 
-	apiVaccineStatus.GET("", cont.GetVaccineStatusController)
+	apiVaccineStatus.GET("", cont.GetAllVaccineStatusController)
 	apiVaccineStatus.GET("/:id", cont.GetVaccineStatusController)
 	apiVaccineStatus.PUT("/:id", cont.UpdateVaccineStatusController)
 	apiVaccineStatus.DELETE("/:id", cont.DeleteVaccineStatusController)
 	apiVaccineStatus.POST("", cont.CreateVaccineStatusController)
+}
+
+func UserAddressGroupAPI(e *echo.Echo, conf config.Config) {
+
+	db := database.InitDB(conf)
+
+	repo := repository.NewUserAddressMysqlRepository(db)
+
+	svcUserAddress := usecase.NewUserAddress(repo, conf)
+
+	cont := UserAddressController{
+		svc: svcUserAddress,
+	}
+
+	apiUserAddress := e.Group("/session",
+		middleware.Logger(),
+		middleware.CORS(),
+		//m.APIKEYMiddleware,
+	)
+
+	apiUserAddress.GET("", cont.GetAllUserAddressController)
+	apiUserAddress.GET("/:id", cont.GetUserAddressController)
+	apiUserAddress.PUT("/:id", cont.UpdateUserAddressController)
+	apiUserAddress.DELETE("/:id", cont.DeleteUserAddressController)
+	apiUserAddress.POST("", cont.CreateUserAddressController)
 }
 
 func BookingGroupAPI(e *echo.Echo, conf config.Config) {
