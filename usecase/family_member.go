@@ -17,11 +17,8 @@ func (s *svcFamilyMember) CreateFamilyMember(familymember model.FamilyMember) er
 	return s.repo.CreateFamilyMembers(familymember)
 }
 
-func (s *svcFamilyMember) UpdateFamilyMember(id, idToken int, familymember model.FamilyMember) error {
-	fmt.Println(id, idToken)
-	if id != idToken {
-		return fmt.Errorf("error")
-	}
+func (s *svcFamilyMember) UpdateFamilyMember(id int, familymember model.FamilyMember) error {
+	fmt.Println(id)
 	return s.repo.UpdateOneFamilyMemberByID(id, familymember)
 }
 

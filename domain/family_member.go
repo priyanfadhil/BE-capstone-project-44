@@ -16,7 +16,7 @@ type AdapterFamilyMemberRepository interface {
 // Use Case
 type AdapterFamilyMember interface {
 	CreateFamilyMember(familymember model.FamilyMember) error
-	UpdateFamilyMember(id, idToken int, familymember model.FamilyMember) error
+	UpdateFamilyMember(id int, familymember model.FamilyMember) error
 	GetAllFamilyMembers() []model.FamilyMember
 	GetFamilyMemberByID(id int) (model.FamilyMember, error)
 	DeleteFamilyMemberByID(id int) error

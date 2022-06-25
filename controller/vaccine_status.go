@@ -10,15 +10,15 @@ import (
 	"github.com/priyanfadhil/BE-capstone-project-44/model"
 )
 
-type FamilyMemberController struct {
-	svc domain.AdapterFamilyMember
+type VaccineStatusController struct {
+	svc domain.AdapterVaccineStatus
 }
 
-func (ce *FamilyMemberController) CreateFamilyMemberController(c echo.Context) error {
-	familymember := model.FamilyMember{}
-	c.Bind(&familymember)
+func (ce *VaccineStatusController) CreateVaccineStatusController(c echo.Context) error {
+	vaccinestatus := model.VaccineStatus{}
+	c.Bind(&vaccinestatus)
 
-	err := ce.svc.CreateFamilyMember(familymember)
+	err := ce.svc.CreateVaccineStatus(vaccinestatus)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"messages": err.Error(),
@@ -27,18 +27,18 @@ func (ce *FamilyMemberController) CreateFamilyMemberController(c echo.Context) e
 
 	return c.JSON(http.StatusCreated, map[string]interface{}{
 		"messages":      "success",
-		"familymembers": familymember,
+		"vaccinestatus": vaccinestatus,
 	})
 }
 
-func (ce *FamilyMemberController) UpdateFamilyMemberController(c echo.Context) error {
+func (ce *VaccineStatusController) UpdateVaccineStatusController(c echo.Context) error {
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
 
-	familymember := model.FamilyMember{}
-	c.Bind(&familymember)
+	vaccinestatus := model.VaccineStatus{}
+	c.Bind(&vaccinestatus)
 
-	err := ce.svc.UpdateFamilyMember(intID, familymember)
+	err := ce.svc.UpdateVaccineStatus(intID, vaccinestatus)
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
 			"messages": "no id or no change or unauthorization",
@@ -50,11 +50,11 @@ func (ce *FamilyMemberController) UpdateFamilyMemberController(c echo.Context) e
 	})
 }
 
-func (ce *FamilyMemberController) DeleteFamilyMemberController(c echo.Context) error {
+func (ce *VaccineStatusController) DeleteVaccineStatusController(c echo.Context) error {
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
 
-	err := ce.svc.DeleteFamilyMemberByID(intID)
+	err := ce.svc.DeleteVaccineStatusByID(intID)
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
 			"messages": "no id or no delete",
@@ -66,12 +66,12 @@ func (ce *FamilyMemberController) DeleteFamilyMemberController(c echo.Context) e
 	})
 }
 
-func (ce *FamilyMemberController) GetFamilyMemberController(c echo.Context) error {
+func (ce *VaccineStatusController) GetVaccineStatusController(c echo.Context) error {
 	fmt.Println("eksekusi handler")
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
 
-	res, err := ce.svc.GetFamilyMemberByID(intID)
+	res, err := ce.svc.GetVaccineStatusByID(intID)
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
 			"messages": "no id or no delete",
@@ -80,15 +80,15 @@ func (ce *FamilyMemberController) GetFamilyMemberController(c echo.Context) erro
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"messages":      "success",
-		"familymembers": res,
+		"vaccinestatus": res,
 	})
 }
 
-func (ce *FamilyMemberController) GetFamilyMembersController(c echo.Context) error {
-	familymembers := ce.svc.GetAllFamilyMembers()
+func (ce *VaccineStatusController) GetAllVaccineStatusController(c echo.Context) error {
+	vaccinestatus := ce.svc.GetAllVaccineStatus()
 
 	return c.JSONPretty(http.StatusOK, map[string]interface{}{
 		"messages":      "success",
-		"familymembers": familymembers,
+		"vaccinestatus": vaccinestatus,
 	}, "  ")
 }

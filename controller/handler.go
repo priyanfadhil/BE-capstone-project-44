@@ -59,6 +59,31 @@ func FamilyMemberGroupAPI(e *echo.Echo, conf config.Config) {
 	apiFamilyMember.POST("", cont.CreateFamilyMemberController, middleware.JWT([]byte(conf.JWT_KEY)))
 }
 
+func VaccineStatusGroupAPI(e *echo.Echo, conf config.Config) {
+
+	db := database.InitDB(conf)
+
+	repo := repository.NewVaccineStatusMysqlRepository(db)
+
+	svcVaccineStatus := usecase.NewVaccineStatus(repo, conf)
+
+	cont := VaccineStatusController{
+		svc: svcVaccineStatus,
+	}
+
+	apiVaccineStatus := e.Group("/session",
+		middleware.Logger(),
+		middleware.CORS(),
+		//m.APIKEYMiddleware,
+	)
+
+	apiVaccineStatus.GET("", cont.GetVaccineStatusController)
+	apiVaccineStatus.GET("/:id", cont.GetVaccineStatusController)
+	apiVaccineStatus.PUT("/:id", cont.UpdateVaccineStatusController)
+	apiVaccineStatus.DELETE("/:id", cont.DeleteVaccineStatusController)
+	apiVaccineStatus.POST("", cont.CreateVaccineStatusController)
+}
+
 func BookingGroupAPI(e *echo.Echo, conf config.Config) {
 
 	db := database.InitDB(conf)
