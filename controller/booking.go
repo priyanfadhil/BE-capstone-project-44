@@ -10,11 +10,11 @@ import (
 	"github.com/priyanfadhil/BE-capstone-project-44/model"
 )
 
-type EchoControllerBooking struct {
+type BookingController struct {
 	svc domain.AdapterBooking
 }
 
-func (ce *EchoControllerBooking) CreateBookingController(c echo.Context) error {
+func (ce *BookingController) CreateBookingController(c echo.Context) error {
 	booking := model.Booking{}
 	c.Bind(&booking)
 	session_id := booking.SessionID
@@ -32,7 +32,7 @@ func (ce *EchoControllerBooking) CreateBookingController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoControllerBooking) UpdateBookingController(c echo.Context) error {
+func (ce *BookingController) UpdateBookingController(c echo.Context) error {
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
 
@@ -51,7 +51,7 @@ func (ce *EchoControllerBooking) UpdateBookingController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoControllerBooking) DeleteBookingController(c echo.Context) error {
+func (ce *BookingController) DeleteBookingController(c echo.Context) error {
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
 
@@ -67,7 +67,7 @@ func (ce *EchoControllerBooking) DeleteBookingController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoControllerBooking) GetBookingController(c echo.Context) error {
+func (ce *BookingController) GetBookingController(c echo.Context) error {
 	fmt.Println("eksekusi handler")
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
@@ -85,7 +85,7 @@ func (ce *EchoControllerBooking) GetBookingController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoControllerBooking) GetBookingsController(c echo.Context) error {
+func (ce *BookingController) GetBookingsController(c echo.Context) error {
 	booking := ce.svc.GetAllBookings()
 
 	return c.JSONPretty(http.StatusOK, map[string]interface{}{

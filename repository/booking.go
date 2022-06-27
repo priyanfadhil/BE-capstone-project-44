@@ -43,7 +43,7 @@ func (r *BookingRepositoryMysqlLayer) UpdateOneBookingByID(id int, booking model
 }
 
 func (r *BookingRepositoryMysqlLayer) DeleteBookingByID(id int) error {
-	res := r.DB.Delete(&model.Booking{
+	res := r.DB.Unscoped().Delete(&model.Booking{
 		ID: id,
 	})
 
