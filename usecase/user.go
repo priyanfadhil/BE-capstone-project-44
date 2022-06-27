@@ -41,6 +41,7 @@ func (s *svcUser) DeleteUserByID(id int) error {
 
 func (s *svcUser) LoginUser(name, password string) (string, int) {
 	user, _ := s.repo.GetOneUserByName(name)
+	print(user.Password)
 
 	if user.Password != password {
 		return "", http.StatusUnauthorized

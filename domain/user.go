@@ -23,4 +23,3 @@ type AdapterUser interface {
 	LoginUser(name, password string) (string, int)
 	DeleteUserByID(id int) error
 }
-

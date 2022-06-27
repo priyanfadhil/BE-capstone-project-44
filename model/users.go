@@ -1,10 +1,15 @@
 package model
 
+import "gorm.io/gorm"
+
 type User struct {
+	gorm.Model
 	ID           int            `json:"id" gorm:"primaryKey"`
 	NIK          string         `json:"nik"`
 	Name         string         `json:"name"`
 	Email        string         `json:"email"`
+	Phone        string         `json:"phone"`
 	Password     string         `json:"password"`
-	FamilyMember []FamilyMember `json:"familymember" gorm:"foreignKey:UserID"`
+	FamilyMember []FamilyMember `gorm:"foreignKey:UserID"`
+	UserAddress  UserAddress    `gorm:"foreignKey:UserID"`
 }

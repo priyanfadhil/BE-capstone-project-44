@@ -17,15 +17,12 @@ func (r *BookingRepositoryMysqlLayer) CreateBooking(booking model.Booking) error
 	if res.RowsAffected < 1 {
 		return fmt.Errorf("error insert")
 	}
-
 	return nil
 }
 
 func (r *BookingRepositoryMysqlLayer) GetAllBookings() []model.Booking {
 	bookings := []model.Booking{}
 	r.DB.Find(&bookings)
-	//r.DB.Model(&model.User{}).Association("rents").Find(&users)
-
 	return bookings
 }
 
@@ -34,7 +31,6 @@ func (r *BookingRepositoryMysqlLayer) GetOneBookingByID(id int) (booking model.B
 	if res.RowsAffected < 1 {
 		err = fmt.Errorf("not found")
 	}
-
 	return
 }
 
@@ -43,7 +39,6 @@ func (r *BookingRepositoryMysqlLayer) UpdateOneBookingByID(id int, booking model
 	if res.RowsAffected < 1 {
 		return fmt.Errorf("error update")
 	}
-
 	return nil
 }
 

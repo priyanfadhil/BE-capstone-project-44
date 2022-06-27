@@ -96,7 +96,7 @@ func UserAddressGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcUserAddress,
 	}
 
-	apiUserAddress := e.Group("/address",
+	apiUserAddress := e.Group("/useraddress",
 		middleware.Logger(),
 		middleware.CORS(),
 		//m.APIKEYMiddleware,
@@ -113,9 +113,10 @@ func BookingGroupAPI(e *echo.Echo, conf config.Config) {
 
 	db := database.InitDB(conf)
 
-	repo := repository.NewBookingMysqlRepository(db)
+	bookingRepo := repository.NewBookingMysqlRepository(db)
+	sessionRepo := repository.NewSessionMysqlRepository(db)
 
-	svcBooking := usecase.NewBooking(repo, conf)
+	svcBooking := usecase.NewBooking(bookingRepo, sessionRepo, conf)
 
 	cont := EchoControllerBooking{
 		svc: svcBooking,
@@ -196,7 +197,7 @@ func VaccineGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcVaccine,
 	}
 
-	apiVaccine := e.Group("/vaccinestatus",
+	apiVaccine := e.Group("/vaccine",
 		middleware.Logger(),
 		middleware.CORS(),
 		//m.APIKEYMiddleware,
@@ -221,7 +222,7 @@ func AdminGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcAdmin,
 	}
 
-	apiAdmin := e.Group("/vaccinestatus",
+	apiAdmin := e.Group("/admin",
 		middleware.Logger(),
 		middleware.CORS(),
 	)

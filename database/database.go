@@ -13,7 +13,7 @@ import (
 func InitDB(conf config.Config) *gorm.DB {
 
 	conectionString := fmt.Sprintf(
-		"%s:%s@tcp(%s:%s)/%s?charset=utf8",
+		"%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		conf.DB_USERNAME,
 		conf.DB_PASSWORD,
 		conf.DB_HOST,

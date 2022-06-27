@@ -7,7 +7,7 @@ type Config struct {
 	DB_PORT        string
 	DB_HOST        string
 	DB_NAME        string
-	JWT_KEY 	   string
+	JWT_KEY        string
 }
 
 func InitConfiguration() Config {
@@ -19,6 +19,6 @@ func InitConfiguration() Config {
 		DB_NAME:        "vaccination",
 		DB_PORT:        "3306",
 		DB_HOST:        "127.0.0.1",
-		JWT_KEY:		"123",
+		JWT_KEY:        "123",
 	}
 }

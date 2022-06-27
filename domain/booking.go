@@ -15,7 +15,7 @@ type AdapterBookingRepository interface {
 
 // Use Case
 type AdapterBooking interface {
-	CreateBooking(Booking model.Booking) error
+	CreateBooking(session_id int, Booking model.Booking) error
 	UpdateBooking(id int, Booking model.Booking) error
 	GetAllBookings() []model.Booking
 	GetBookingByID(id int) (model.Booking, error)

@@ -24,7 +24,6 @@ func (r *userRepositoryMysqlLayer) CreateUsers(user model.User) error {
 func (r *userRepositoryMysqlLayer) GetAllUsers() []model.User {
 	users := []model.User{}
 	r.DB.Find(&users)
-	//r.DB.Model(&model.User{}).Association("rents").Find(&users)
 
 	return users
 }

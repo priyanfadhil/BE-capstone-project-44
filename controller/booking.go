@@ -17,8 +17,9 @@ type EchoControllerBooking struct {
 func (ce *EchoControllerBooking) CreateBookingController(c echo.Context) error {
 	booking := model.Booking{}
 	c.Bind(&booking)
+	session_id := booking.SessionID
 
-	err := ce.svc.CreateBooking(booking)
+	err := ce.svc.CreateBooking(session_id, booking)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"messages": err.Error(),

@@ -15,10 +15,10 @@ type UserAddressController struct {
 }
 
 func (ce *UserAddressController) CreateUserAddressController(c echo.Context) error {
-	booking := model.UserAddress{}
-	c.Bind(&booking)
+	useraddress := model.UserAddress{}
+	c.Bind(&useraddress)
 
-	err := ce.svc.CreateUserAddress(booking)
+	err := ce.svc.CreateUserAddress(useraddress)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"messages": err.Error(),
@@ -26,8 +26,8 @@ func (ce *UserAddressController) CreateUserAddressController(c echo.Context) err
 	}
 
 	return c.JSON(http.StatusCreated, map[string]interface{}{
-		"messages": "success",
-		"bookings": booking,
+		"messages":     "success",
+		"useraddresss": useraddress,
 	})
 }
 
@@ -35,10 +35,10 @@ func (ce *UserAddressController) UpdateUserAddressController(c echo.Context) err
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
 
-	booking := model.UserAddress{}
-	c.Bind(&booking)
+	useraddress := model.UserAddress{}
+	c.Bind(&useraddress)
 
-	err := ce.svc.UpdateUserAddress(intID, booking)
+	err := ce.svc.UpdateUserAddress(intID, useraddress)
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
 			"messages": "no id or no change or unauthorization",
@@ -79,16 +79,16 @@ func (ce *UserAddressController) GetUserAddressController(c echo.Context) error 
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"messages": "success",
-		"bookings": res,
+		"messages":     "success",
+		"useraddresss": res,
 	})
 }
 
 func (ce *UserAddressController) GetAllUserAddressController(c echo.Context) error {
-	booking := ce.svc.GetAllUserAddress()
+	useraddress := ce.svc.GetAllUserAddress()
 
 	return c.JSONPretty(http.StatusOK, map[string]interface{}{
-		"messages": "success",
-		"bookings": booking,
+		"messages":     "success",
+		"useraddresss": useraddress,
 	}, "  ")
 }
