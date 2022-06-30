@@ -1,5 +1,7 @@
 package config
 
+import "os"
+
 type Config struct {
 	SERVER_ADDRESS string
 	DB_USERNAME    string
@@ -13,12 +15,23 @@ type Config struct {
 func InitConfiguration() Config {
 
 	return Config{
-		SERVER_ADDRESS: "0.0.0.0:8888",
-		DB_USERNAME:    "root",
-		DB_PASSWORD:    "root",
-		DB_NAME:        "vaccination",
-		DB_PORT:        "3306",
-		DB_HOST:        "127.0.0.1",
-		JWT_KEY:        "123",
+		SERVER_ADDRESS: GetOrDefault("SERVER_ADDRESS", "0.0.0.0:8888"),
+		DB_USERNAME:    GetOrDefault("DB_USERNAME", "root"),
+		DB_PASSWORD:    GetOrDefault("DB_PASSWORD", "root"),
+		DB_NAME:        GetOrDefault("DB_NAME", "vaccination"),
+		DB_PORT:        GetOrDefault("DB_PORT", "3306"),
+		DB_HOST:        GetOrDefault("DB_HOST", "127.0.0.1"),
+		JWT_KEY:        GetOrDefault("JWT_KEY", "123"),
 	}
+}
+
+func GetOrDefault(envKey, defaultValue string) string {
+	// cek env
+	// untuk mengisi "export SERVER_ADDRESS=0.0.0.0:8000"
+	// untuk menghapus "unset SERVER_ADDRESS"
+	if val, exist := os.LookupEnv(envKey); exist {
+		return val
+	}
+
+	return defaultValue
 }
