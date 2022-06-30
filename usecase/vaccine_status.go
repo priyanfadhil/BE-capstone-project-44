@@ -22,7 +22,7 @@ func (s *svcVaccineStatus) UpdateVaccineStatus(id int, vaccinestatus model.Vacci
 	return s.repo.UpdateOneVaccineStatusByID(id, vaccinestatus)
 }
 
-func (s *svcVaccineStatus) GetAllVaccineStatus() []model.VaccineStatus {
+func (s *svcVaccineStatus) GetAllVaccineStatuses() []model.VaccineStatus {
 	return s.repo.GetAllVaccineStatuses()
 }
 

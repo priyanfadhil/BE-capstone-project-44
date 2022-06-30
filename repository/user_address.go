@@ -21,7 +21,7 @@ func (r *UserAddressRepositoryMysqlLayer) CreateUserAddress(useraddress model.Us
 	return nil
 }
 
-func (r *UserAddressRepositoryMysqlLayer) GetAllUserAddress() []model.UserAddress {
+func (r *UserAddressRepositoryMysqlLayer) GetAllUserAddresses() []model.UserAddress {
 	useraddress := []model.UserAddress{}
 	r.DB.Find(&useraddress)
 	//r.DB.Model(&model.User{}).Association("rents").Find(&users)
