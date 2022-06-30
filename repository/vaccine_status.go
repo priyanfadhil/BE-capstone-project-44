@@ -21,7 +21,7 @@ func (r *VaccineStatusRepositoryMysqlLayer) CreateVaccineStatus(vaccinestatus mo
 	return nil
 }
 
-func (r *VaccineStatusRepositoryMysqlLayer) GetAllVaccineStatus() []model.VaccineStatus {
+func (r *VaccineStatusRepositoryMysqlLayer) GetAllVaccineStatuses() []model.VaccineStatus {
 	vanncinestatus := []model.VaccineStatus{}
 	r.DB.Find(&vanncinestatus)
 	//r.DB.Model(&model.User{}).Association("rents").Find(&users)

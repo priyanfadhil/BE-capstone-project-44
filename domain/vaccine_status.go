@@ -7,7 +7,7 @@ import (
 // repository
 type AdapterVaccineStatusRepository interface {
 	CreateVaccineStatus(VaccineStatus model.VaccineStatus) error
-	GetAllVaccineStatus() []model.VaccineStatus
+	GetAllVaccineStatuses() []model.VaccineStatus
 	GetOneVaccineStatusByID(id int) (VaccineStatus model.VaccineStatus, err error)
 	UpdateOneVaccineStatusByID(id int, VaccineStatus model.VaccineStatus) error
 	DeleteVaccineStatusByID(id int) error
@@ -17,7 +17,7 @@ type AdapterVaccineStatusRepository interface {
 type AdapterVaccineStatus interface {
 	CreateVaccineStatus(VaccineStatus model.VaccineStatus) error
 	UpdateVaccineStatus(id int, VaccineStatus model.VaccineStatus) error
-	GetAllVaccineStatus() []model.VaccineStatus
+	GetAllVaccineStatuses() []model.VaccineStatus
 	GetVaccineStatusByID(id int) (model.VaccineStatus, error)
 	DeleteVaccineStatusByID(id int) error
 }
