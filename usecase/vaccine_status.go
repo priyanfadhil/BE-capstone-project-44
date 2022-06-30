@@ -23,7 +23,7 @@ func (s *svcVaccineStatus) UpdateVaccineStatus(id int, vaccinestatus model.Vacci
 }
 
 func (s *svcVaccineStatus) GetAllVaccineStatus() []model.VaccineStatus {
-	return s.repo.GetAllVaccineStatus()
+	return s.repo.GetAllVaccineStatuses()
 }
 
 func (s *svcVaccineStatus) GetVaccineStatusByID(id int) (model.VaccineStatus, error) {

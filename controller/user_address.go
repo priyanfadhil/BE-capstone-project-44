@@ -84,8 +84,8 @@ func (ce *UserAddressController) GetUserAddressController(c echo.Context) error 
 	})
 }
 
-func (ce *UserAddressController) GetAllUserAddressController(c echo.Context) error {
-	useraddress := ce.svc.GetAllUserAddress()
+func (ce *UserAddressController) GetAllUserAddressesController(c echo.Context) error {
+	useraddress := ce.svc.GetAllUserAddresses()
 
 	return c.JSONPretty(http.StatusOK, map[string]interface{}{
 		"messages":     "success",

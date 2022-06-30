@@ -7,7 +7,7 @@ import (
 // repository
 type AdapterUserAddressRepository interface {
 	CreateUserAddress(UserAddress model.UserAddress) error
-	GetAllUserAddress() []model.UserAddress
+	GetAllUserAddresses() []model.UserAddress
 	GetOneUserAddressByID(id int) (UserAddress model.UserAddress, err error)
 	UpdateOneUserAddressByID(id int, UserAddress model.UserAddress) error
 	DeleteUserAddressByID(id int) error
@@ -17,7 +17,7 @@ type AdapterUserAddressRepository interface {
 type AdapterUserAddress interface {
 	CreateUserAddress(UserAddress model.UserAddress) error
 	UpdateUserAddress(id int, UserAddress model.UserAddress) error
-	GetAllUserAddress() []model.UserAddress
+	GetAllUserAddresses() []model.UserAddress
 	GetUserAddressByID(id int) (model.UserAddress, error)
 	DeleteUserAddressByID(id int) error
 }

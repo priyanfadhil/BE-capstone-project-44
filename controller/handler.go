@@ -77,7 +77,7 @@ func VaccineStatusGroupAPI(e *echo.Echo, conf config.Config) {
 		//m.APIKEYMiddleware,
 	)
 
-	apiVaccineStatus.GET("", cont.GetAllVaccineStatusController)
+	apiVaccineStatus.GET("", cont.GetAllVaccineStatusesController)
 	apiVaccineStatus.GET("/:id", cont.GetVaccineStatusController)
 	apiVaccineStatus.PUT("/:id", cont.UpdateVaccineStatusController)
 	apiVaccineStatus.DELETE("/:id", cont.DeleteVaccineStatusController)
@@ -102,7 +102,7 @@ func UserAddressGroupAPI(e *echo.Echo, conf config.Config) {
 		//m.APIKEYMiddleware,
 	)
 
-	apiUserAddress.GET("", cont.GetAllUserAddressController)
+	apiUserAddress.GET("", cont.GetAllUserAddressesController)
 	apiUserAddress.GET("/:id", cont.GetUserAddressController)
 	apiUserAddress.PUT("/:id", cont.UpdateUserAddressController)
 	apiUserAddress.DELETE("/:id", cont.DeleteUserAddressController)
