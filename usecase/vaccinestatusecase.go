@@ -6,7 +6,6 @@ import (
 
 	"github.com/priyanfadhil/BE-capstone-project-44/config"
 	"github.com/priyanfadhil/BE-capstone-project-44/domain"
-	"github.com/priyanfadhil/BE-capstone-project-44/helper"
 	"github.com/priyanfadhil/BE-capstone-project-44/model"
 )
 
