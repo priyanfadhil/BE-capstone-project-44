@@ -22,6 +22,12 @@ func UserGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcUser,
 	}
 
+	e.GET("/debug", func(c echo.Context) error {
+		return c.JSON(200, map[string]string{
+			"message": "hello world",
+		})
+	})
+
 	apiUser := e.Group("/users",
 		middleware.Logger(),
 		middleware.CORS(),
@@ -71,17 +77,17 @@ func VaccineStatusGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcVaccineStatus,
 	}
 
-	apiVaccineStatus := e.Group("/vaccinestatus",
+	apiVaccineStatus := e.Group("/vaccinestatuses",
 		middleware.Logger(),
 		middleware.CORS(),
 		//m.APIKEYMiddleware,
 	)
 
-	apiVaccineStatus.GET("", cont.GetAllVaccineStatusesController)
-	apiVaccineStatus.GET("/:id", cont.GetVaccineStatusController)
-	apiVaccineStatus.PUT("/:id", cont.UpdateVaccineStatusController)
-	apiVaccineStatus.DELETE("/:id", cont.DeleteVaccineStatusController)
-	apiVaccineStatus.POST("", cont.CreateVaccineStatusController)
+	apiVaccineStatus.GET("", cont.GetAllVaccineStatusesController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccineStatus.GET("/:id", cont.GetVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccineStatus.PUT("/:id", cont.UpdateVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccineStatus.DELETE("/:id", cont.DeleteVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccineStatus.POST("", cont.CreateVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
 }
 
 func UserAddressGroupAPI(e *echo.Echo, conf config.Config) {
@@ -96,17 +102,17 @@ func UserAddressGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcUserAddress,
 	}
 
-	apiUserAddress := e.Group("/useraddress",
+	apiUserAddress := e.Group("/useraddresses",
 		middleware.Logger(),
 		middleware.CORS(),
 		//m.APIKEYMiddleware,
 	)
 
-	apiUserAddress.GET("", cont.GetAllUserAddressesController)
-	apiUserAddress.GET("/:id", cont.GetUserAddressController)
-	apiUserAddress.PUT("/:id", cont.UpdateUserAddressController)
-	apiUserAddress.DELETE("/:id", cont.DeleteUserAddressController)
-	apiUserAddress.POST("", cont.CreateUserAddressController)
+	apiUserAddress.GET("", cont.GetAllUserAddressesController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiUserAddress.GET("/:id", cont.GetUserAddressController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiUserAddress.PUT("/:id", cont.UpdateUserAddressController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiUserAddress.DELETE("/:id", cont.DeleteUserAddressController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiUserAddress.POST("", cont.CreateUserAddressController, middleware.JWT([]byte(conf.JWT_KEY)))
 }
 
 func BookingGroupAPI(e *echo.Echo, conf config.Config) {
@@ -122,17 +128,17 @@ func BookingGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcBooking,
 	}
 
-	apiBooking := e.Group("/booking",
+	apiBooking := e.Group("/bookings",
 		middleware.Logger(),
 		middleware.CORS(),
 		//m.APIKEYMiddleware,
 	)
 
-	apiBooking.GET("", cont.GetBookingsController)
-	apiBooking.GET("/:id", cont.GetBookingController)
-	apiBooking.PUT("/:id", cont.UpdateBookingController)
-	apiBooking.DELETE("/:id", cont.DeleteBookingController)
-	apiBooking.POST("", cont.CreateBookingController)
+	apiBooking.GET("", cont.GetBookingsController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiBooking.GET("/:id", cont.GetBookingController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiBooking.PUT("/:id", cont.UpdateBookingController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiBooking.DELETE("/:id", cont.DeleteBookingController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiBooking.POST("", cont.CreateBookingController, middleware.JWT([]byte(conf.JWT_KEY)))
 }
 
 func SessionGroupAPI(e *echo.Echo, conf config.Config) {
@@ -147,17 +153,17 @@ func SessionGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcSession,
 	}
 
-	apiSession := e.Group("/session",
+	apiSession := e.Group("/sessions",
 		middleware.Logger(),
 		middleware.CORS(),
 		//m.APIKEYMiddleware,
 	)
 
-	apiSession.GET("", cont.GetSessionsController)
-	apiSession.GET("/:id", cont.GetSessionController)
-	apiSession.PUT("/:id", cont.UpdateSessionController)
-	apiSession.DELETE("/:id", cont.DeleteSessionController)
-	apiSession.POST("", cont.CreateSessionController)
+	apiSession.GET("", cont.GetSessionsController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiSession.GET("/:id", cont.GetSessionController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiSession.PUT("/:id", cont.UpdateSessionController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiSession.DELETE("/:id", cont.DeleteSessionController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiSession.POST("", cont.CreateSessionController, middleware.JWT([]byte(conf.JWT_KEY)))
 }
 
 func VaccinationLocationGroupAPI(e *echo.Echo, conf config.Config) {
@@ -172,17 +178,17 @@ func VaccinationLocationGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcVaccinationLocation,
 	}
 
-	apiVaccinationLocation := e.Group("/vaccinationlocation",
+	apiVaccinationLocation := e.Group("/vaccinationlocations",
 		middleware.Logger(),
 		middleware.CORS(),
 		//m.APIKEYMiddleware,
 	)
 
-	apiVaccinationLocation.GET("", cont.GetVaccinationLocationsController)
-	apiVaccinationLocation.GET("/:id", cont.GetVaccinationLocationController)
-	apiVaccinationLocation.PUT("/:id", cont.UpdateVaccinationLocationController)
-	apiVaccinationLocation.DELETE("/:id", cont.DeleteVaccinationLocationController)
-	apiVaccinationLocation.POST("", cont.CreateVaccinationLocationController)
+	apiVaccinationLocation.GET("", cont.GetVaccinationLocationsController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccinationLocation.GET("/:id", cont.GetVaccinationLocationController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccinationLocation.PUT("/:id", cont.UpdateVaccinationLocationController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccinationLocation.DELETE("/:id", cont.DeleteVaccinationLocationController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccinationLocation.POST("", cont.CreateVaccinationLocationController, middleware.JWT([]byte(conf.JWT_KEY)))
 }
 
 func VaccineGroupAPI(e *echo.Echo, conf config.Config) {
@@ -197,17 +203,17 @@ func VaccineGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcVaccine,
 	}
 
-	apiVaccine := e.Group("/vaccine",
+	apiVaccine := e.Group("/vaccines",
 		middleware.Logger(),
 		middleware.CORS(),
 		//m.APIKEYMiddleware,
 	)
 
-	apiVaccine.GET("", cont.GetAllVaccineController)
-	apiVaccine.GET("/:id", cont.GetVaccineController)
-	apiVaccine.PUT("/:id", cont.UpdateVaccineController)
-	apiVaccine.DELETE("/:id", cont.DeleteVaccineController)
-	apiVaccine.POST("", cont.CreateVaccineController)
+	apiVaccine.GET("", cont.GetAllVaccineController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccine.GET("/:id", cont.GetVaccineController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccine.PUT("/:id", cont.UpdateVaccineController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccine.DELETE("/:id", cont.DeleteVaccineController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiVaccine.POST("", cont.CreateVaccineController, middleware.JWT([]byte(conf.JWT_KEY)))
 }
 
 func AdminGroupAPI(e *echo.Echo, conf config.Config) {
@@ -222,14 +228,14 @@ func AdminGroupAPI(e *echo.Echo, conf config.Config) {
 		svc: svcAdmin,
 	}
 
-	apiAdmin := e.Group("/admin",
+	apiAdmin := e.Group("/admins",
 		middleware.Logger(),
 		middleware.CORS(),
 	)
 
-	apiAdmin.GET("", cont.GetAllAdminController)
-	apiAdmin.GET("/:id", cont.GetAdminController)
-	apiAdmin.PUT("/:id", cont.UpdateAdminController)
-	apiAdmin.DELETE("/:id", cont.DeleteAdminController)
-	apiAdmin.POST("", cont.CreateAdminController)
+	apiAdmin.GET("", cont.GetAllAdminController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiAdmin.GET("/:id", cont.GetAdminController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiAdmin.PUT("/:id", cont.UpdateAdminController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiAdmin.DELETE("/:id", cont.DeleteAdminController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiAdmin.POST("", cont.CreateAdminController, middleware.JWT([]byte(conf.JWT_KEY)))
 }
