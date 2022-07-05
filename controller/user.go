@@ -104,11 +104,11 @@ func (ce *UserController) LoginUserController(c echo.Context) error {
 
 	c.Bind(&userLogin)
 
-	token, statusCode := ce.svc.LoginUser(userLogin["name"].(string), userLogin["password"].(string))
+	token, statusCode := ce.svc.LoginUser(userLogin["email"].(string), userLogin["password"].(string))
 	switch statusCode {
 	case http.StatusUnauthorized:
 		return c.JSONPretty(http.StatusUnauthorized, map[string]interface{}{
-			"messages": "name atau password salah",
+			"messages": "email atau password salah",
 		}, "  ")
 
 	case http.StatusInternalServerError:

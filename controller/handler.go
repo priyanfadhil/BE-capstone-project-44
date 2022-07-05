@@ -80,7 +80,6 @@ func VaccineStatusGroupAPI(e *echo.Echo, conf config.Config) {
 	apiVaccineStatus := e.Group("/vaccinestatuses",
 		middleware.Logger(),
 		middleware.CORS(),
-		//m.APIKEYMiddleware,
 	)
 
 	apiVaccineStatus.GET("", cont.GetAllVaccineStatusesController, middleware.JWT([]byte(conf.JWT_KEY)))
@@ -234,6 +233,7 @@ func AdminGroupAPI(e *echo.Echo, conf config.Config) {
 	)
 
 	apiAdmin.GET("", cont.GetAllAdminController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiAdmin.POST("/login", cont.LoginAdminController)
 	apiAdmin.GET("/:id", cont.GetAdminController, middleware.JWT([]byte(conf.JWT_KEY)))
 	apiAdmin.PUT("/:id", cont.UpdateAdminController, middleware.JWT([]byte(conf.JWT_KEY)))
 	apiAdmin.DELETE("/:id", cont.DeleteAdminController, middleware.JWT([]byte(conf.JWT_KEY)))

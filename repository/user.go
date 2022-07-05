@@ -37,8 +37,8 @@ func (r *userRepositoryMysqlLayer) GetOneUserByID(id int) (user model.User, err 
 	return
 }
 
-func (r *userRepositoryMysqlLayer) GetOneUserByName(name string) (user model.User, err error) {
-	res := r.DB.Where("name = ?", name).Find(&user)
+func (r *userRepositoryMysqlLayer) GetOneUserByEmail(email string) (user model.User, err error) {
+	res := r.DB.Where("email = ?", email).Find(&user)
 	if res.RowsAffected < 1 {
 		err = fmt.Errorf("not found")
 	}

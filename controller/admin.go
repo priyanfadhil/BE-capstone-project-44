@@ -92,3 +92,27 @@ func (ce *AdminController) GetAllAdminController(c echo.Context) error {
 		"admin":    admin,
 	}, "  ")
 }
+
+func (ce *AdminController) LoginAdminController(c echo.Context) error {
+	adminLogin := make(map[string]interface{})
+
+	c.Bind(&adminLogin)
+
+	token, statusCode := ce.svc.LoginAdmin(adminLogin["email"].(string), adminLogin["password"].(string))
+	switch statusCode {
+	case http.StatusUnauthorized:
+		return c.JSONPretty(http.StatusUnauthorized, map[string]interface{}{
+			"messages": "email atau password salah",
+		}, "  ")
+
+	case http.StatusInternalServerError:
+		return c.JSONPretty(http.StatusInternalServerError, map[string]interface{}{
+			"messages": "internal",
+		}, "  ")
+	}
+
+	return c.JSONPretty(http.StatusOK, map[string]interface{}{
+		"messages": "success",
+		"token":    token,
+	}, "  ")
+}

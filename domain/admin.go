@@ -9,6 +9,7 @@ type AdapterAdminRepository interface {
 	CreateAdmins(admin model.Admin) error
 	GetAllAdmins() []model.Admin
 	GetOneAdminByID(id int) (admin model.Admin, err error)
+	GetOneAdminByEmail(email string) (user model.Admin, err error)
 	UpdateOneAdminByID(id int, admin model.Admin) error
 	DeleteAdminByID(id int) error
 }
@@ -19,5 +20,6 @@ type AdapterAdmin interface {
 	UpdateAdmin(id int, admin model.Admin) error
 	GetAllAdmins() []model.Admin
 	GetAdminByID(id int) (model.Admin, error)
+	LoginAdmin(email, password string) (string, int)
 	DeleteAdminByID(id int) error
 }
