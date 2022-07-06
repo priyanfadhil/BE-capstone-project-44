@@ -19,15 +19,15 @@ func TestGetVaccineStatus(t *testing.T) {
 		SkipInitializeWithVersion: true,
 	},
 	})
-	repo := NewVaccineStatusysqlRepository(db)
+	repo := NewVaccineStatusMysqlRepository(db)
 	defer dbMock.Close()
 
-	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `VaccineStatus` WHERE `VaccineStatus`.`deleted_at` IS NULL")).
+	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `Vaccine_Statuses` WHERE `Vaccine_Statuses`.`deleted_at` IS NULL")).
 		WillReturnRows(sqlmock.NewRows([]string{"id", "status", "booking"}).
-			AddRow(1, "OK", ))
+			AddRow(1, "vaccine pertama" ))
 
-	res := repo.GetAllVaccineStatus()
-	assert.Equal(t, res[0].status, 1)
+	res := repo.GetAllVaccineStatuses()
+	assert.Equal(t, res[0].Status, "vaccine pertama")
 	assert.Len(t, res, 1)
 }
 
@@ -38,17 +38,17 @@ func TestGetAllVaccineStatuses(t *testing.T) {
 		SkipInitializeWithVersion: true,
 	},
 	})
-	repo := NewVaccineStatusysqlRepository(db)
+	repo := NewVaccineStatusMysqlRepository(db)
 	defer dbMock.Close()
 
-	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `VaccineStatus`")).
-		WillReturnRows(sqlmock.NewRows([]string{"id", "status", "booking"}).
-			AddRow(1, 1, 1, 1, true).
-			AddRow(2, 2, 1, 1, true).
-			AddRow(3, 3, 1, 1, true))
+	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `Vaccine_Statuses`")).
+		WillReturnRows(sqlmock.NewRows([]string{"id", "status"}).
+			AddRow(1, "vaccine pertama").
+			AddRow(2, "vaccine kedua").
+			AddRow(3, "vaccine ketiga"))
 
-	res := repo.GetAllVaccineStatus()
-	assert.Equal(t, res[0].FamilyID, 1)
+	res := repo.GetAllVaccineStatuses()
+	assert.Equal(t, res[0].Status, "vaccine pertama")
 	assert.Len(t, res, 3)
 }
 
@@ -59,7 +59,7 @@ func TestDeleteVaccineStatusyID(t *testing.T) {
 		SkipInitializeWithVersion: true,
 	},
 	})
-	repo := NewVaccineStatusysqlRepository(db)
+	repo := NewVaccineStatusMysqlRepository(db)
 	defer dbMock.Close()
 
 	fMock.ExpectBegin()
@@ -68,7 +68,7 @@ func TestDeleteVaccineStatusyID(t *testing.T) {
 		WillReturnResult(driver.RowsAffected(1))
 	fMock.ExpectCommit()
 
-	err := repo.DeleteVaccineStatusyID(1)
+	err := repo.DeleteVaccineStatusByID(1)
 	assert.NoError(t, err)
 	assert.True(t, true)
 }
@@ -80,7 +80,7 @@ func TestUpdateVaccineStatusyID(t *testing.T) {
 		SkipInitializeWithVersion: true,
 	},
 	})
-	repo := NewVaccineStatusysqlRepository(db)
+	repo := NewVaccineStatusMysqlRepository(db)
 	defer dbMock.Close()
 
 	fMock.ExpectBegin()
@@ -89,8 +89,8 @@ func TestUpdateVaccineStatusyID(t *testing.T) {
 		WillReturnResult(sqlmock.NewResult(0, 1))
 	fMock.ExpectCommit()
 
-	err := repo.UpdateOneVaccineStatusyID(1, model.VaccineStatus
-		Status: true,
+	err := repo.UpdateOneVaccineStatusByID(1, model.VaccineStatus{
+		Status: "vaccine pertama",
 	})
 	assert.NoError(t, err)
 	assert.True(t, true)

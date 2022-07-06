@@ -22,7 +22,7 @@ func (s *svcUserAddress) UpdateUserAddress(id int, useraddress model.UserAddress
 	return s.repo.UpdateOneUserAddressByID(id, useraddress)
 }
 
-func (s *svcUserAddress) GetAllUserAddress() []model.UserAddress {
+func (s *svcUserAddress) GetAllUserAddresses() []model.UserAddress {
 	return s.repo.GetAllUserAddresses()
 }
 

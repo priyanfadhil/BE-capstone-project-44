@@ -11,38 +11,27 @@ import (
 
 func TestUpdateVaccineStatus(t *testing.T) {
 	testTable := []struct {
-		name, Alamat, Kelurahan, Kecamatan, Kota, Provinsi, VaccinationLocation string
-		update                                                                  func(id int, rent model.UserAddress) error
-		noError                                                                 bool
-		id, UserID                                                              int
+		name, status	string
+		update         	func(id int, rent model.VaccineStatus) error
+		noError        	bool
+		id		     	int
 	}{
 		{
-			name: "success",
+			name: "success", 
 			update: func(id int, rent model.VaccineStatus) error {
 				return nil
 			},
-			noError:             true,
-			UserID:              1,
-			Alamat:              "jln. maguwo",
-			Kelurahan:           "banguntapan",
-			Kecamatan:           "banguntapan",
-			Kota:                "bantul",
-			Provinsi:            "DIY",
-			VaccinationLocation: "rs. hardjolukito",
-		},
+			noError: true,
+			id:      1,
+	    },
 		{
 			name: "error internal",
 			update: func(id int, rent model.VaccineStatus) error {
 				return errors.New("error")
 			},
-			noError:             false,
-			UserID:              0,
-			Alamat:              "jln. maguwo",
-			Kelurahan:           "banguntapan",
-			Kecamatan:           "banguntapan",
-			Kota:                "bantul",
-			Provinsi:            "DIY",
-			VaccinationLocation: "rs. hardjolukito",
+			noError:   false,
+			id:    0,
+			
 		},
 	}
 	repoVaccineSts := RepoMockVaccineStatus{}

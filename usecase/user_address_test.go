@@ -11,7 +11,7 @@ import (
 
 func TestUpdateUserAddress(t *testing.T) {
 	testTable := []struct {
-		name, Alamat, Kelurahan, Kecamatan, Kota, Provinsi, VaccinationLocation string
+		name, Alamat, Kelurahan, Kecamatan, Kota, Provinsi						string
 		update                                                                  func(id int, rent model.UserAddress) error
 		noError                                                                 bool
 		id, UserID                                                              int
@@ -28,7 +28,7 @@ func TestUpdateUserAddress(t *testing.T) {
 			Kecamatan:           "banguntapan",
 			Kota:                "bantul",
 			Provinsi:            "DIY",
-			VaccinationLocation: "rs. hardjolukito",
+			
 		},
 		{
 			name: "error internal",
@@ -42,7 +42,7 @@ func TestUpdateUserAddress(t *testing.T) {
 			Kecamatan:           "banguntapan",
 			Kota:                "bantul",
 			Provinsi:            "DIY",
-			VaccinationLocation: "rs. hardjolukito",
+			
 		},
 	}
 	repoUsrAddress := RepoMockUserAddress{}

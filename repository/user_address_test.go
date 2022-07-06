@@ -22,16 +22,16 @@ func TestGetOneUserAddress(t *testing.T) {
 	repo := NewUserAddressMysqlRepository(db)
 	defer dbMock.Close()
 
-	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `UserAddresss` WHERE `UserAddress`.`deleted_at` IS NULL")).
-		WillReturnRows(sqlmock.NewRows([]string{"id", "user_id", "alamat", "kelurahan", "kecamatan", "kota", "provinsi", "vaccinationlocations"}).
-			AddRow(1, 1, "jln. maguwo", "banguntapan", "banguntapan", "yogyakarta", "DIY", "rs. hardjolukito"))
+	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `User_Addresses`")).
+		WillReturnRows(sqlmock.NewRows([]string{"id", "userid", "alamat", "kelurahan", "kecamatan", "kota", "provinsi"}).
+			AddRow(1, 1, "jln. maguwo", "banguntapan", "banguntapan", "yogyakarta", "DIY"))
 
 	res := repo.GetAllUserAddresses()
-	assert.Equal(t, res[0].Alamat, "jln. maguwo")
+	assert.Equal(t, res[0].Alamat, "jln. laksada adisutjipto")
 	assert.Len(t, res, 1)
 }
 
-func TestGetAllUserAddresss(t *testing.T) {
+func TestGetAllUserAddresses(t *testing.T) {
 	dbMock, fMock, _ := sqlmock.New()
 	db, _ := gorm.Open(mysql.Dialector{&mysql.Config{
 		Conn:                      dbMock,
@@ -41,14 +41,14 @@ func TestGetAllUserAddresss(t *testing.T) {
 	repo := NewUserAddressMysqlRepository(db)
 	defer dbMock.Close()
 
-	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `UserAddresss`")).
-		WillReturnRows(sqlmock.NewRows([]string{"id", "user_id", "alamat", "kelurahan", "kecamatan", "kota", "provinsi", "vaccinationlocations"}).
-			AddRow(1, 1, "jln. maguwo", "banguntapan", "banguntapan", "bantul", "DIY", "rspau hardjolukito").
-			AddRow(2, 2, "jln. kronggahan", "trihanggo", "gamping", "sleman", "DIY", "rsup dr. sardjito ").
-			AddRow(3, 3, "jln. laksada adisucipto", "demangan", "gondokusuman", "DIY", "rs. siloam"))
+	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `User_Addresses`")).
+		WillReturnRows(sqlmock.NewRows([]string{"id", "user_id", "alamat", "kelurahan", "kecamatan", "kota", "provinsi"}).
+			AddRow(1, 1, "jln. maguwo", "banguntapan", "banguntapan", "bantul", "DIY").
+			AddRow(2, 2, "jln. kronggahan", "trihanggo", "gamping", "sleman", "DIY").
+			AddRow(3, 3, "jln. laksada adisucipto", "demangan", "gondokusuman", "DIY"))
 
 	res := repo.GetAllUserAddresses()
-	assert.Equal(t, res[0].Alamat, "jln. maguwo")
+	assert.Equal(t, res[0].Alamat, "jln. laksada adisutjipto")
 	assert.Len(t, res, 3)
 }
 
@@ -85,7 +85,7 @@ func TestUpdateUserAddressByID(t *testing.T) {
 
 	fMock.ExpectBegin()
 	fMock.ExpectExec(regexp.QuoteMeta("UPDATE")).
-		WithArgs(true, 1).
+		WithArgs("jln. laksada adisutjipto", 1).
 		WillReturnResult(sqlmock.NewResult(0, 1))
 	fMock.ExpectCommit()
 
