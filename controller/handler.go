@@ -10,26 +10,62 @@ import (
 	"github.com/priyanfadhil/BE-capstone-project-44/usecase"
 )
 
-func VaccineStatusGroupAPI(e *echo.Echo, conf config.Config) {
+func UserGroupAPI(e *echo.Echo, conf config.Config) {
 
 	db := database.InitDB(conf)
 
-	repo := repository.VaccineStatusMysqlRepository(db)
+	repo := repository.UserMysqlRepository(db)
 
-	svcVaccineStatus := usecase.NewVaccineStatus(repo, conf)
+	svcUser := usecase.NewUser(repo, conf)
 
 	cont := EchoController{
-		svc: svcVaccineStatus,
+		svc: svcUser,
 	}
 
-	apiVaccineStatus := e.Group("/vaccinestatus",
+	e.GET("/health", func(c echo.Context) error {
+		return c.JSON(200, map[string]string{
+			"message": "your request awesome",
+		})
+	})
+
+	apiUser := e.Group("/users",
 		middleware.Logger(),
 		middleware.CORS(),
+		//m.APIKEYMiddleware,
 	)
+	apiUser.GET("", cont.GetUsersController)
+	apiUser.GET("/:id", cont.GetUserController)
+	apiUser.PUT("/:id", cont.UpdateUserController)
+	apiUser.DELETE("/:id", cont.DeleteUserController)
+	apiUser.POST("", cont.CreateUserController)
+}
 
-	apiVaccineStatus.GET("", cont.GetVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiVaccineStatus.GET("/:id", cont.GetVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiVaccineStatus.PUT("/:id", cont.UpdateVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiVaccineStatus.DELETE("/:id", cont.DeleteVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiVaccineStatus.POST("", cont.CreateVaccineStatusController)
+func VaccinationLocationGroupAPI(e *echo.Echo, conf config.Config) {
+
+	db := database.InitDB(conf)
+
+	repo := repository.NewVaccinationLocationMysqlRepository(db)
+
+	svcVaccinationLocation := usecase.NewVaccinationLocation(repo, conf)
+
+	cont := EchoControllerVaccinationLocation{
+		svc: svcVaccinationLocation,
+	}
+
+	e.GET("/health", func(c echo.Context) error {
+		return c.JSON(200, map[string]string{
+			"message": "your request awesome",
+		})
+	})
+
+	apiVaccinationLocation := e.Group("/vaccinationlocation",
+		middleware.Logger(),
+		middleware.CORS(),
+		//m.APIKEYMiddleware,
+	)
+	apiVaccinationLocation.GET("", cont.GetVaccinationLocationsController)
+	apiVaccinationLocation.GET("/:id", cont.GetVaccinationLocationController)
+	apiVaccinationLocation.PUT("/:id", cont.UpdateVaccinationLocationController)
+	apiVaccinationLocation.DELETE("/:id", cont.DeleteVaccinationLocationController)
+	apiVaccinationLocation.POST("", cont.CreateVaccinationLocationController)
 }
