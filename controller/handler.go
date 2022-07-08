@@ -237,5 +237,5 @@ func AdminGroupAPI(e *echo.Echo, conf config.Config) {
 	apiAdmin.GET("/:id", cont.GetAdminController, middleware.JWT([]byte(conf.JWT_KEY)))
 	apiAdmin.PUT("/:id", cont.UpdateAdminController, middleware.JWT([]byte(conf.JWT_KEY)))
 	apiAdmin.DELETE("/:id", cont.DeleteAdminController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiAdmin.POST("", cont.CreateAdminController, middleware.JWT([]byte(conf.JWT_KEY)))
+	apiAdmin.POST("", cont.CreateAdminController)
 }
