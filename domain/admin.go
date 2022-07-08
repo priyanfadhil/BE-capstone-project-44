@@ -16,7 +16,7 @@ type AdapterAdminRepository interface {
 
 // Use Case
 type AdapterAdmin interface {
-	CreateAdmin(admin model.Admin) error
+	CreateAdmin(email string, admin model.Admin) error
 	UpdateAdmin(id int, admin model.Admin) error
 	GetAllAdmins() []model.Admin
 	GetAdminByID(id int) (model.Admin, error)

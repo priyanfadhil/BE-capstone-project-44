@@ -18,8 +18,9 @@ type UserController struct {
 func (ce *UserController) CreateUserController(c echo.Context) error {
 	user := model.User{}
 	c.Bind(&user)
+	email := user.Email
 
-	err := ce.svc.CreateUser(user)
+	err := ce.svc.CreateUser(email, user)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"messages": err.Error(),

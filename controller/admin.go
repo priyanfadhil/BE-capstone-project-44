@@ -17,8 +17,9 @@ type AdminController struct {
 func (ce *AdminController) CreateAdminController(c echo.Context) error {
 	admin := model.Admin{}
 	c.Bind(&admin)
+	email := admin.Email
 
-	err := ce.svc.CreateAdmin(admin)
+	err := ce.svc.CreateAdmin(email, admin)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"messages": err.Error(),

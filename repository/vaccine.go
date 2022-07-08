@@ -47,7 +47,7 @@ func (r *VaccineRepositoryMysqlLayer) UpdateOneVaccineByID(id int, vaccine model
 }
 
 func (r *VaccineRepositoryMysqlLayer) DeleteVaccineByID(id int) error {
-	res := r.DB.Delete(&model.Vaccine{
+	res := r.DB.Unscoped().Delete(&model.Vaccine{
 		ID: id,
 	})
 

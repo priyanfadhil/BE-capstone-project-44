@@ -15,7 +15,13 @@ type svcUser struct {
 	repo domain.AdapterUserRepository
 }
 
-func (s *svcUser) CreateUser(user model.User) error {
+func (s *svcUser) CreateUser(email string, user model.User) error {
+	newUser, _ := s.repo.GetOneUserByEmail(email)
+
+	if newUser.Email == email {
+		return fmt.Errorf("email sudah terdaftar")
+	}
+
 	return s.repo.CreateUsers(user)
 }
 

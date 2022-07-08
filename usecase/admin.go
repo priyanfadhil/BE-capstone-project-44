@@ -15,7 +15,12 @@ type svcAdmin struct {
 	repo domain.AdapterAdminRepository
 }
 
-func (s *svcAdmin) CreateAdmin(admin model.Admin) error {
+func (s *svcAdmin) CreateAdmin(email string, admin model.Admin) error {
+	newAdmin, _ := s.repo.GetOneAdminByEmail(email)
+
+	if newAdmin.Email == email {
+		return fmt.Errorf("email sudah terdaftar")
+	}
 	return s.repo.CreateAdmins(admin)
 }
 

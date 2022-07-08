@@ -56,7 +56,7 @@ func (r *AdminRepositoryMysqlLayer) UpdateOneAdminByID(id int, admin model.Admin
 }
 
 func (r *AdminRepositoryMysqlLayer) DeleteAdminByID(id int) error {
-	res := r.DB.Delete(&model.Admin{
+	res := r.DB.Unscoped().Delete(&model.Admin{
 		ID: id,
 	})
 

@@ -16,7 +16,7 @@ type AdapterUserRepository interface {
 
 // Use Case
 type AdapterUser interface {
-	CreateUser(user model.User) error
+	CreateUser(email string, user model.User) error
 	UpdateUser(id, idToken int, user model.User) error
 	GetAllUsers() []model.User
 	GetUserByID(id int) (model.User, error)

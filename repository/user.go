@@ -56,7 +56,7 @@ func (r *userRepositoryMysqlLayer) UpdateOneUserByID(id int, user model.User) er
 }
 
 func (r *userRepositoryMysqlLayer) DeleteUserByID(id int) error {
-	res := r.DB.Delete(&model.User{
+	res := r.DB.Unscoped().Delete(&model.User{
 		ID: id,
 	})
 
