@@ -22,8 +22,8 @@ func TestGetVaccineStatus(t *testing.T) {
 	repo := NewVaccineStatusMysqlRepository(db)
 	defer dbMock.Close()
 
-	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `Vaccine_Statuses` WHERE `Vaccine_Statuses`.`deleted_at` IS NULL")).
-		WillReturnRows(sqlmock.NewRows([]string{"id", "status", "booking"}).
+	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `Vaccine_Statuses`")).
+		WillReturnRows(sqlmock.NewRows([]string{"id", "status"}).
 			AddRow(1, "vaccine pertama" ))
 
 	res := repo.GetAllVaccineStatuses()

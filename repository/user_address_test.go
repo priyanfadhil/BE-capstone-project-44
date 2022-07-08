@@ -23,7 +23,7 @@ func TestGetOneUserAddress(t *testing.T) {
 	defer dbMock.Close()
 
 	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `User_Addresses`")).
-		WillReturnRows(sqlmock.NewRows([]string{"id", "userid", "alamat", "kelurahan", "kecamatan", "kota", "provinsi"}).
+		WillReturnRows(sqlmock.NewRows([]string{"id", "user_id", "alamat", "kelurahan", "kecamatan", "kota", "provinsi"}).
 			AddRow(1, 1, "jln. maguwo", "banguntapan", "banguntapan", "yogyakarta", "DIY"))
 
 	res := repo.GetAllUserAddresses()
