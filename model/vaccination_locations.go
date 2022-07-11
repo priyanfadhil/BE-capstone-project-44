@@ -8,6 +8,6 @@ type VaccinationLocation struct {
 	UserID    int       `json:"user_id"`
 	CreatedBY int       `json:"created_by"`
 	Name      string    `json:"name"`
-	Alamat    string    `json:"alamat"`
+	Address   string    `json:"address"`
 	Sessions  []Session `gorm:"foreignKey:LocationID"`
 }
