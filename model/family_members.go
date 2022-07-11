@@ -12,6 +12,6 @@ type FamilyMember struct {
 	Birthdate string  `json:"birthdate" gorm:"type:Date"`
 	Gender    string  `json:"gender"`
 	Phone     string  `json:"phone"`
-	Alamat    string  `json:"alamat"`
+	Address   string  `json:"address"`
 	Booking   Booking `gorm:"foreignKey:FamilyID"`
 }

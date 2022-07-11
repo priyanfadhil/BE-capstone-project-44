@@ -23,3 +23,21 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+
+  deploy-to-ec2:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          cd BE-capstone-project-44
+          docker-compose down
+          git pull origin main
+          docker-compose build
+          docker-compose up
