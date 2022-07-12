@@ -12,13 +12,13 @@ type userRepositoryMysqlLayer struct {
 	DB *gorm.DB
 }
 
-func (r *userRepositoryMysqlLayer) CreateUsers(user model.User) error {
+func (r *userRepositoryMysqlLayer) CreateUsers(user model.User) (model.User, error) {
 	res := r.DB.Create(&user)
 	if res.RowsAffected < 1 {
-		return fmt.Errorf("error insert")
+		return user, fmt.Errorf("error insert")
 	}
 
-	return nil
+	return user, nil
 }
 
 func (r *userRepositoryMysqlLayer) GetAllUsers() []model.User {

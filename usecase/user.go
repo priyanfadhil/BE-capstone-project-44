@@ -11,18 +11,32 @@ import (
 )
 
 type svcUser struct {
-	c    config.Config
-	repo domain.AdapterUserRepository
+	c          config.Config
+	Userrepo   domain.AdapterUserRepository
+	Familyrepo domain.AdapterFamilyMemberRepository
 }
 
 func (s *svcUser) CreateUser(email string, user model.User) error {
-	newUser, _ := s.repo.GetOneUserByEmail(email)
+	newUser, _ := s.Userrepo.GetOneUserByEmail(email)
+	family := model.FamilyMember{}
 
 	if newUser.Email == email {
 		return fmt.Errorf("email sudah terdaftar")
 	}
 
-	return s.repo.CreateUsers(user)
+	create, err := s.Userrepo.CreateUsers(user)
+
+	if err != nil {
+		return err
+	}
+
+	family.UserID = create.ID
+	family.NIK = user.NIK
+	family.Name = user.Name
+	family.Phone = user.Phone
+
+	s.Familyrepo.CreateFamilyMembers(family)
+	return err
 }
 
 func (s *svcUser) UpdateUser(id, idToken int, user model.User) error {
@@ -30,23 +44,23 @@ func (s *svcUser) UpdateUser(id, idToken int, user model.User) error {
 	if id != idToken {
 		return fmt.Errorf("error")
 	}
-	return s.repo.UpdateOneUserByID(id, user)
+	return s.Userrepo.UpdateOneUserByID(id, user)
 }
 
 func (s *svcUser) GetAllUsers() []model.User {
-	return s.repo.GetAllUsers()
+	return s.Userrepo.GetAllUsers()
 }
 
 func (s *svcUser) GetUserByID(id int) (model.User, error) {
-	return s.repo.GetOneUserByID(id)
+	return s.Userrepo.GetOneUserByID(id)
 }
 
 func (s *svcUser) DeleteUserByID(id int) error {
-	return s.repo.DeleteUserByID(id)
+	return s.Userrepo.DeleteUserByID(id)
 }
 
 func (s *svcUser) LoginUser(name, password string) (string, int) {
-	user, _ := s.repo.GetOneUserByEmail(name)
+	user, _ := s.Userrepo.GetOneUserByEmail(name)
 	print(user.Password)
 
 	if user.Password != password {
@@ -61,9 +75,10 @@ func (s *svcUser) LoginUser(name, password string) (string, int) {
 	return token, http.StatusOK
 }
 
-func User(repo domain.AdapterUserRepository, c config.Config) domain.AdapterUser {
+func User(Userrepo domain.AdapterUserRepository, Familyrepo domain.AdapterFamilyMemberRepository, c config.Config) domain.AdapterUser {
 	return &svcUser{
-		repo: repo,
-		c:    c,
+		Userrepo:   Userrepo,
+		Familyrepo: Familyrepo,
+		c:          c,
 	}
 }

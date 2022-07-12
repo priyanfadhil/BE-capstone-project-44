@@ -6,7 +6,7 @@ import (
 
 // repository
 type AdapterUserRepository interface {
-	CreateUsers(user model.User) error
+	CreateUsers(user model.User) (model.User, error)
 	GetAllUsers() []model.User
 	GetOneUserByID(id int) (user model.User, err error)
 	GetOneUserByEmail(email string) (user model.User, err error)

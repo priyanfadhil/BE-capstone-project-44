@@ -90,7 +90,7 @@ func TestUpdateBookingByID(t *testing.T) {
 	fMock.ExpectCommit()
 
 	err := repo.UpdateOneBookingByID(1, model.Booking{
-		Status: true,
+		Done: true,
 	})
 	assert.NoError(t, err)
 	assert.True(t, true)

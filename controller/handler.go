@@ -14,9 +14,10 @@ func UserGroupAPI(e *echo.Echo, conf config.Config) {
 
 	db := database.InitDB(conf)
 
-	repo := repository.UserMysqlRepository(db)
+	Userrepo := repository.UserMysqlRepository(db)
+	Familymember := repository.FamilyMemberMysqlRepository(db)
 
-	svcUser := usecase.User(repo, conf)
+	svcUser := usecase.User(Userrepo, Familymember, conf)
 
 	cont := UserController{
 		svc: svcUser,
@@ -63,30 +64,6 @@ func FamilyMemberGroupAPI(e *echo.Echo, conf config.Config) {
 	apiFamilyMember.PUT("/:id", cont.UpdateFamilyMemberController, middleware.JWT([]byte(conf.JWT_KEY)))
 	apiFamilyMember.DELETE("/:id", cont.DeleteFamilyMemberController, middleware.JWT([]byte(conf.JWT_KEY)))
 	apiFamilyMember.POST("", cont.CreateFamilyMemberController, middleware.JWT([]byte(conf.JWT_KEY)))
-}
-
-func VaccineStatusGroupAPI(e *echo.Echo, conf config.Config) {
-
-	db := database.InitDB(conf)
-
-	repo := repository.NewVaccineStatusMysqlRepository(db)
-
-	svcVaccineStatus := usecase.NewVaccineStatus(repo, conf)
-
-	cont := VaccineStatusController{
-		svc: svcVaccineStatus,
-	}
-
-	apiVaccineStatus := e.Group("/vaccinestatuses",
-		middleware.Logger(),
-		middleware.CORS(),
-	)
-
-	apiVaccineStatus.GET("", cont.GetAllVaccineStatusesController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiVaccineStatus.GET("/:id", cont.GetVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiVaccineStatus.PUT("/:id", cont.UpdateVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiVaccineStatus.DELETE("/:id", cont.DeleteVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiVaccineStatus.POST("", cont.CreateVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
 }
 
 func BookingGroupAPI(e *echo.Echo, conf config.Config) {
