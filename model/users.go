@@ -10,6 +10,6 @@ type User struct {
 	Email        string         `json:"email"`
 	Phone        string         `json:"phone"`
 	Password     string         `json:"password"`
+	Address      string         `json:"address"`
 	FamilyMember []FamilyMember `gorm:"foreignKey:UserID"`
-	UserAddress  UserAddress    `gorm:"foreignKey:UserID"`
 }

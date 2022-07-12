@@ -89,31 +89,6 @@ func VaccineStatusGroupAPI(e *echo.Echo, conf config.Config) {
 	apiVaccineStatus.POST("", cont.CreateVaccineStatusController, middleware.JWT([]byte(conf.JWT_KEY)))
 }
 
-func UserAddressGroupAPI(e *echo.Echo, conf config.Config) {
-
-	db := database.InitDB(conf)
-
-	repo := repository.NewUserAddressMysqlRepository(db)
-
-	svcUserAddress := usecase.NewUserAddress(repo, conf)
-
-	cont := UserAddressController{
-		svc: svcUserAddress,
-	}
-
-	apiUserAddress := e.Group("/useraddresses",
-		middleware.Logger(),
-		middleware.CORS(),
-		//m.APIKEYMiddleware,
-	)
-
-	apiUserAddress.GET("", cont.GetAllUserAddressesController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiUserAddress.GET("/:id", cont.GetUserAddressController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiUserAddress.PUT("/:id", cont.UpdateUserAddressController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiUserAddress.DELETE("/:id", cont.DeleteUserAddressController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiUserAddress.POST("", cont.CreateUserAddressController, middleware.JWT([]byte(conf.JWT_KEY)))
-}
-
 func BookingGroupAPI(e *echo.Echo, conf config.Config) {
 
 	db := database.InitDB(conf)
