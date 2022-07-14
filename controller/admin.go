@@ -20,8 +20,9 @@ func (ce *AdminController) CreateAdminController(c echo.Context) error {
 	email := admin.Email
 
 	err := ce.svc.CreateAdmin(email, admin)
+
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"messages": err.Error(),
 		})
 	}

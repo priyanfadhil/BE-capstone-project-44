@@ -21,7 +21,7 @@ func (ce *BookingController) CreateBookingController(c echo.Context) error {
 
 	err := ce.svc.CreateBooking(session_id, booking)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"messages": err.Error(),
 		})
 	}

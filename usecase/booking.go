@@ -19,7 +19,7 @@ func (s *svcBooking) CreateBooking(session_id int, booking model.Booking) error 
 
 	// fmt.Println(stok.StockVaccine)
 	if *stok.StockVaccine == 0 {
-		return fmt.Errorf("error")
+		return fmt.Errorf("sesi penuh")
 	}
 
 	stok.Name = ""
