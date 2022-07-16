@@ -48,7 +48,7 @@ func (r *SessionRepositoryMysqlLayer) UpdateOneSessionByID(id int, session model
 }
 
 func (r *SessionRepositoryMysqlLayer) DeleteSessionByID(id int) error {
-	res := r.DB.Delete(&model.Session{
+	res := r.DB.Unscoped().Delete(&model.Session{
 		ID: id,
 	})
 

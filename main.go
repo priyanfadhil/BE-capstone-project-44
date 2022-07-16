@@ -14,8 +14,6 @@ func main() {
 	rest.FamilyMemberGroupAPI(e, config)
 	rest.BookingGroupAPI(e, config)
 	rest.SessionGroupAPI(e, config)
-	rest.VaccineStatusGroupAPI(e, config)
-	rest.UserAddressGroupAPI(e, config)
 	rest.VaccinationLocationGroupAPI(e, config)
 	rest.VaccineGroupAPI(e, config)
 	rest.AdminGroupAPI(e, config)

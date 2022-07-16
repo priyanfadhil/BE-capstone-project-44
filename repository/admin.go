@@ -37,6 +37,15 @@ func (r *AdminRepositoryMysqlLayer) GetOneAdminByID(id int) (admin model.Admin, 
 	return
 }
 
+func (r *AdminRepositoryMysqlLayer) GetOneAdminByEmail(email string) (admin model.Admin, err error) {
+	res := r.DB.Where("email = ?", email).Find(&admin)
+	if res.RowsAffected < 1 {
+		err = fmt.Errorf("not found")
+	}
+
+	return admin, err
+}
+
 func (r *AdminRepositoryMysqlLayer) UpdateOneAdminByID(id int, admin model.Admin) error {
 	res := r.DB.Where("id = ?", id).UpdateColumns(&admin)
 	if res.RowsAffected < 1 {
@@ -47,7 +56,7 @@ func (r *AdminRepositoryMysqlLayer) UpdateOneAdminByID(id int, admin model.Admin
 }
 
 func (r *AdminRepositoryMysqlLayer) DeleteAdminByID(id int) error {
-	res := r.DB.Delete(&model.Admin{
+	res := r.DB.Unscoped().Delete(&model.Admin{
 		ID: id,
 	})
 

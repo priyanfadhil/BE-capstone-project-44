@@ -11,5 +11,4 @@ type User struct {
 	Phone        string         `json:"phone"`
 	Password     string         `json:"password"`
 	FamilyMember []FamilyMember `gorm:"foreignKey:UserID"`
-	
 }

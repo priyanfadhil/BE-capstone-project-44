@@ -47,7 +47,7 @@ func (r *familymemberRepositoryMysqlLayer) UpdateOneFamilyMemberByID(id int, fam
 }
 
 func (r *familymemberRepositoryMysqlLayer) DeleteFamilyMemberByID(id int) error {
-	res := r.DB.Delete(&model.FamilyMember{
+	res := r.DB.Unscoped().Delete(&model.FamilyMember{
 		ID: id,
 	})
 

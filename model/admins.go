@@ -5,7 +5,8 @@ import "gorm.io/gorm"
 type Admin struct {
 	gorm.Model
 	ID                   int                   `json:"id" gorm:"primaryKey"`
-	IDNumber             int                   `json:"id_number"`
-	Password             string                `json:"name"`
+	Email                string                `json:"email"`
+	Password             string                `json:"password"`
+	Role                 string                `json:"role"`
 	VaccinationLocations []VaccinationLocation `gorm:"foreignKey:CreatedBY"`
 }

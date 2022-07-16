@@ -17,10 +17,12 @@ type AdminController struct {
 func (ce *AdminController) CreateAdminController(c echo.Context) error {
 	admin := model.Admin{}
 	c.Bind(&admin)
+	email := admin.Email
 
-	err := ce.svc.CreateAdmin(admin)
+	err := ce.svc.CreateAdmin(email, admin)
+
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"messages": err.Error(),
 		})
 	}
@@ -90,5 +92,29 @@ func (ce *AdminController) GetAllAdminController(c echo.Context) error {
 	return c.JSONPretty(http.StatusOK, map[string]interface{}{
 		"messages": "success",
 		"admin":    admin,
+	}, "  ")
+}
+
+func (ce *AdminController) LoginAdminController(c echo.Context) error {
+	adminLogin := make(map[string]interface{})
+
+	c.Bind(&adminLogin)
+
+	token, statusCode := ce.svc.LoginAdmin(adminLogin["email"].(string), adminLogin["password"].(string))
+	switch statusCode {
+	case http.StatusUnauthorized:
+		return c.JSONPretty(http.StatusUnauthorized, map[string]interface{}{
+			"messages": "email atau password salah",
+		}, "  ")
+
+	case http.StatusInternalServerError:
+		return c.JSONPretty(http.StatusInternalServerError, map[string]interface{}{
+			"messages": "internal",
+		}, "  ")
+	}
+
+	return c.JSONPretty(http.StatusOK, map[string]interface{}{
+		"messages": "success",
+		"token":    token,
 	}, "  ")
 }

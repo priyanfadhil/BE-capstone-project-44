@@ -18,10 +18,11 @@ type UserController struct {
 func (ce *UserController) CreateUserController(c echo.Context) error {
 	user := model.User{}
 	c.Bind(&user)
+	email := user.Email
 
-	err := ce.svc.CreateUser(user)
+	err := ce.svc.CreateUser(email, user)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"messages": err.Error(),
 		})
 	}
@@ -104,11 +105,11 @@ func (ce *UserController) LoginUserController(c echo.Context) error {
 
 	c.Bind(&userLogin)
 
-	token, statusCode := ce.svc.LoginUser(userLogin["name"].(string), userLogin["password"].(string))
+	token, statusCode := ce.svc.LoginUser(userLogin["email"].(string), userLogin["password"].(string))
 	switch statusCode {
 	case http.StatusUnauthorized:
 		return c.JSONPretty(http.StatusUnauthorized, map[string]interface{}{
-			"messages": "name atau password salah",
+			"messages": "email atau password salah",
 		}, "  ")
 
 	case http.StatusInternalServerError:

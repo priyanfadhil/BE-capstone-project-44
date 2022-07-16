@@ -17,9 +17,9 @@ type svcBooking struct {
 func (s *svcBooking) CreateBooking(session_id int, booking model.Booking) error {
 	stok, _ := s.sessionRepo.GetOneSessionByID(session_id)
 
-	fmt.Println(stok.StockVaccine)
+	// fmt.Println(stok.StockVaccine)
 	if *stok.StockVaccine == 0 {
-		return fmt.Errorf("error")
+		return fmt.Errorf("sesi penuh")
 	}
 
 	stok.Name = ""
@@ -28,7 +28,7 @@ func (s *svcBooking) CreateBooking(session_id int, booking model.Booking) error 
 	stok.End = ""
 	*stok.Status = false
 	*stok.StockVaccine = *stok.StockVaccine - 1
-	fmt.Println(stok.StockVaccine)
+	// fmt.Println(stok.StockVaccine)
 	s.sessionRepo.UpdateOneSessionByID(session_id, stok)
 
 	return s.bookingRepo.CreateBooking(booking)

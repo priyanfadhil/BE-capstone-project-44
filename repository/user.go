@@ -12,13 +12,13 @@ type userRepositoryMysqlLayer struct {
 	DB *gorm.DB
 }
 
-func (r *userRepositoryMysqlLayer) CreateUsers(user model.User) error {
+func (r *userRepositoryMysqlLayer) CreateUsers(user model.User) (model.User, error) {
 	res := r.DB.Create(&user)
 	if res.RowsAffected < 1 {
-		return fmt.Errorf("error insert")
+		return user, fmt.Errorf("error insert")
 	}
 
-	return nil
+	return user, nil
 }
 
 func (r *userRepositoryMysqlLayer) GetAllUsers() []model.User {
@@ -37,8 +37,8 @@ func (r *userRepositoryMysqlLayer) GetOneUserByID(id int) (user model.User, err 
 	return
 }
 
-func (r *userRepositoryMysqlLayer) GetOneUserByName(name string) (user model.User, err error) {
-	res := r.DB.Where("name = ?", name).Find(&user)
+func (r *userRepositoryMysqlLayer) GetOneUserByEmail(email string) (user model.User, err error) {
+	res := r.DB.Where("email = ?", email).Find(&user)
 	if res.RowsAffected < 1 {
 		err = fmt.Errorf("not found")
 	}
@@ -56,7 +56,7 @@ func (r *userRepositoryMysqlLayer) UpdateOneUserByID(id int, user model.User) er
 }
 
 func (r *userRepositoryMysqlLayer) DeleteUserByID(id int) error {
-	res := r.DB.Delete(&model.User{
+	res := r.DB.Unscoped().Delete(&model.User{
 		ID: id,
 	})
 

@@ -9,7 +9,7 @@ type MockUserSvc struct {
 	Mock mock.Mock
 }
 
-func (m *MockUserSvc) CreateUser(user model.User) error {
+func (m *MockUserSvc) CreateUser(email string, user model.User) error {
 	arg := m.Mock.Called(user)
 
 	// if arg.Get(0) == nil {
@@ -33,6 +33,6 @@ func (m *MockUserSvc) GetUserByID(id int) (model.User, error) {
 func (m *MockUserSvc) DeleteUserByID(id int) error {
 	return nil
 }
-func (m *MockUserSvc) LoginUser(name, password string) (string, int){
+func (m *MockUserSvc) LoginUser(email, password string) (string, int){
 	return "", 0
 }

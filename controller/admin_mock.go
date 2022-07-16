@@ -9,7 +9,7 @@ type MockAdminSvc struct {
 	Mock mock.Mock
 }
 
-func (m *MockAdminSvc) CreateAdmin(admin model.Admin) error {
+func (m *MockAdminSvc) CreateAdmin(email string, admin model.Admin) error {
 	arg := m.Mock.Called(admin)
 
 	// if arg.Get(0) == nil {
@@ -33,3 +33,9 @@ func (m *MockAdminSvc) GetAdminByID(id int) (model.Admin, error) {
 func (m *MockAdminSvc) DeleteAdminByID(id int) error {
 	return nil
 }
+
+func (m *MockAdminSvc) LoginAdmin(email, password string) (string, int){
+	return "", 0
+}
+
+

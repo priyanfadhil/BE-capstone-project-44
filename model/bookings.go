@@ -6,10 +6,10 @@ import (
 
 type Booking struct {
 	gorm.Model
-	ID              int `json:"id" gorm:"primaryKey"`
-	Deleted         gorm.DeletedAt
-	FamilyID        int  `json:"family_id" gorm:"foreignkey"`
-	SessionID       int  `json:"session_id" gorm:"foreignkey"`
-	StatusVaccineID int  `json:"status_vaccine_id" gorm:"foreignkey"`
-	Status          bool `json:"status"`
+	ID            int    `json:"id" gorm:"primaryKey"`
+	FamilyID      int    `json:"family_id" gorm:"foreignkey"`
+	SessionID     int    `json:"session_id" gorm:"foreignkey"`
+	VaccineStatus int    `json:"vaccine_status"`
+	TicketNumber  string `json:"ticket_number"`
+	Done          bool   `json:"done"`
 }

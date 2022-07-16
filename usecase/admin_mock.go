@@ -24,3 +24,9 @@ func (r *RepoMockAdmin) UpdateOneAdminByID(id int, admin model.Admin) error {
 func (r *RepoMockAdmin) DeleteAdminByID(id int) error {
 	return r.delete(id)
 }
+
+func (r *RepoMockAdmin) GetOneAdminByEmail(email string) (user model.Admin, err error) {
+	panic("implemente")
+}
+
+
