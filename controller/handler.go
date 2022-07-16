@@ -59,55 +59,7 @@ func FamilyMemberGroupAPI(e *echo.Echo, conf config.Config) {
 	apiFamilyMember.POST("", cont.CreateFamilyMemberController, middleware.JWT([]byte(conf.JWT_KEY)))
 }
 
-func VaccineStatusGroupAPI(e *echo.Echo, conf config.Config) {
 
-	db := database.InitDB(conf)
-
-	repo := repository.NewVaccineStatusMysqlRepository(db)
-
-	svcVaccineStatus := usecase.NewVaccineStatus(repo, conf)
-
-	cont := VaccineStatusController{
-		svc: svcVaccineStatus,
-	}
-
-	apiVaccineStatus := e.Group("/vaccinestatus",
-		middleware.Logger(),
-		middleware.CORS(),
-		//m.APIKEYMiddleware,
-	)
-
-	apiVaccineStatus.GET("", cont.GetAllVaccineStatusesController)
-	apiVaccineStatus.GET("/:id", cont.GetVaccineStatusController)
-	apiVaccineStatus.PUT("/:id", cont.UpdateVaccineStatusController)
-	apiVaccineStatus.DELETE("/:id", cont.DeleteVaccineStatusController)
-	apiVaccineStatus.POST("", cont.CreateVaccineStatusController)
-}
-
-func UserAddressGroupAPI(e *echo.Echo, conf config.Config) {
-
-	db := database.InitDB(conf)
-
-	repo := repository.NewUserAddressMysqlRepository(db)
-
-	svcUserAddress := usecase.NewUserAddress(repo, conf)
-
-	cont := UserAddressController{
-		svc: svcUserAddress,
-	}
-
-	apiUserAddress := e.Group("/useraddress",
-		middleware.Logger(),
-		middleware.CORS(),
-		//m.APIKEYMiddleware,
-	)
-
-	apiUserAddress.GET("", cont.GetAllUserAddressesController)
-	apiUserAddress.GET("/:id", cont.GetUserAddressController)
-	apiUserAddress.PUT("/:id", cont.UpdateUserAddressController)
-	apiUserAddress.DELETE("/:id", cont.DeleteUserAddressController)
-	apiUserAddress.POST("", cont.CreateUserAddressController)
-}
 
 func BookingGroupAPI(e *echo.Echo, conf config.Config) {
 

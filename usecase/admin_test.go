@@ -9,39 +9,44 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestUpdateVaccineStatus(t *testing.T) {
+func TestUpdateAdmin(t *testing.T) {
 	testTable := []struct {
-		name, status	string
-		update         	func(id int, rent model.VaccineStatus) error
-		noError        	bool
-		id		     	int
+		name, Email, Password, Role             string
+		update                                  func(id int, rent model.Admin) error
+		noError                                 bool
+		id										int
 	}{
 		{
-			name: "success", 
-			update: func(id int, rent model.VaccineStatus) error {
+			name: "success",
+			update: func(id int, rent model.Admin) error {
 				return nil
 			},
-			noError: true,
-			id:      1,
-	    },
+			noError:         true,
+			Email:			"mia@gmail.com",
+			id:              1,
+			Password:       "lebahganteng",
+			Role: 			"super admin",
+		},
 		{
 			name: "error internal",
-			update: func(id int, rent model.VaccineStatus) error {
+			update: func(id int, rent model.Admin) error {
 				return errors.New("error")
 			},
-			noError:   false,
-			id:    0,
-			
+			noError:         false,
+			Email:			"judika@gmail.com",
+			id:              2,
+			Password:       "ganteng123",
+			Role: 			"super admin",
 		},
 	}
-	repoVaccineSts := RepoMockVaccineStatus{}
-
+	repoAdmin := RepoMockAdmin{}
+	
 	for _, v := range testTable {
 		t.Run(v.name, func(t *testing.T) {
-			repoVaccineSts.update = v.update
+			repoAdmin.update = v.update
 
-			svc := NewVaccineStatus(&repoVaccineSts, config.Config{})
-			err := svc.UpdateVaccineStatus(v.id, model.VaccineStatus{})
+			svc := NewAdmin(&repoAdmin, config.Config{})
+			err := svc.UpdateAdmin(v.id, model.Admin{})
 			if v.noError {
 				assert.NoError(t, err)
 			}
@@ -49,7 +54,7 @@ func TestUpdateVaccineStatus(t *testing.T) {
 	}
 }
 
-func TestDeleteVaccineStatus(t *testing.T) {
+func TestDeleteAdmin(t *testing.T) {
 	testTable := []struct {
 		name    string
 		delete  func(id int) error
@@ -74,14 +79,15 @@ func TestDeleteVaccineStatus(t *testing.T) {
 			id:      1,
 		},
 	}
-	repoVaccineSts := RepoMockVaccineStatus{}
+	repoAdmin := RepoMockAdmin{}
+
 
 	for _, v := range testTable {
 		t.Run(v.name, func(t *testing.T) {
-			repoVaccineSts.delete = v.delete
+			repoAdmin.delete = v.delete
 
-			svc := NewVaccineStatus(&repoVaccineSts, config.Config{})
-			err := svc.DeleteVaccineStatusByID(v.id)
+			svc := NewAdmin(&repoAdmin, config.Config{})
+			err := svc.DeleteAdminByID(v.id)
 			if v.noError {
 				assert.NoError(t, err)
 			}

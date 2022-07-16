@@ -21,7 +21,7 @@ func (m *MockUserSvc) CreateUser(user model.User) error {
 
 	return arg.Error(0)
 }
-func (m *MockUserSvc) UpdateUser(id int, user model.User) error {
+func (m *MockUserSvc) UpdateUser(id, idToken int, user model.User) error {
 	return nil
 }
 func (m *MockUserSvc) GetAllUsers() []model.User {
@@ -32,4 +32,7 @@ func (m *MockUserSvc) GetUserByID(id int) (model.User, error) {
 }
 func (m *MockUserSvc) DeleteUserByID(id int) error {
 	return nil
+}
+func (m *MockUserSvc) LoginUser(name, password string) (string, int){
+	return "", 0
 }

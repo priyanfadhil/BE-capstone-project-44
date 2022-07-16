@@ -24,7 +24,7 @@ func (m *MockVaccineSvc) CreateVaccine(vaccine model.Vaccine) error {
 func (m *MockVaccineSvc) UpdateVaccine(id int, vaccine model.Vaccine) error {
 	return nil
 }
-func (m *MockVaccineSvc) GetAllVaccines() []model.Vaccine {
+func (m *MockVaccineSvc) GetAllVaccine() []model.Vaccine {
 	return []model.Vaccine{}
 }
 func (m *MockVaccineSvc) GetVaccineByID(id int) (model.Vaccine, error) {
