@@ -1,28 +1,30 @@
 package usecase
 
-import (
-	"github.com/priyanfadhil/BE-capstone-project-44/model"
-	"github.com/stretchr/testify/mock"
-)
+import "github.com/priyanfadhil/BE-capstone-project-44/model"
 
 type RepoMockSession struct {
-	Mock mock.Mock
+	update func(id int, session model.Session) error
+	create func(session model.Session) error
+	delete func(id int) error
+	getone func(id int) (session model.Session, err error)
 }
 
-func (m *RepoMockSession) CreateSession(booking model.Session) error {
-	arg := m.Mock.Called(booking)
+func (r *RepoMockSession) CreateSession(session model.Session) error {
+	return r.create(session)
+}
+func (r *RepoMockSession) GetAllSessions() []model.Session {
+	panic("implemente")
+}
+func (r *RepoMockSession) GetOneSessionByID(id int) (session model.Session, err error) {
+	return r.getone(id)
+}
+func (r *RepoMockSession) UpdateOneSessionByID(id int, session model.Session) error {
+	return r.update(id, session)
+}
+func (r *RepoMockSession) DeleteSessionByID(id int) error {
+	return r.delete(id)
+}
 
-	return arg.Error(0)
-}
-func (m *RepoMockSession) UpdateOneSessionByID(id int, booking model.Session) error {
-	return nil
-}
-func (m *RepoMockSession) GetAllSessions() []model.Session {
-	return []model.Session{}
-}
-func (m *RepoMockSession) GetOneSessionByID(id int) (booking model.Session, err error) {
-	return model.Session{}, nil
-}
-func (m *RepoMockSession) DeleteSessionByID(id int) error {
-	return nil
+func (r *RepoMockSession) GetOneSessionByEmail(email string) (session model.Session, err error) {
+	panic("implemente")
 }

@@ -21,7 +21,7 @@ func (r *VaccineRepositoryMysqlLayer) CreateVaccine(vaccine model.Vaccine) error
 	return nil
 }
 
-func (r *VaccineRepositoryMysqlLayer) GetAllVaccine() []model.Vaccine {
+func (r *VaccineRepositoryMysqlLayer) GetAllVaccines() []model.Vaccine {
 	vanncine := []model.Vaccine{}
 	r.DB.Find(&vanncine)
 

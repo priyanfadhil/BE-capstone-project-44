@@ -100,7 +100,7 @@ func SessionGroupAPI(e *echo.Echo, conf config.Config) {
 
 	svcSession := usecase.NewSession(repo, conf)
 
-	cont := EchoControllerSession{
+	cont := SessionController{
 		svc: svcSession,
 	}
 

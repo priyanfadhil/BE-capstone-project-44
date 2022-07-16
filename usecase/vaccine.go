@@ -22,8 +22,8 @@ func (s *svcVaccine) UpdateVaccine(id int, vaccine model.Vaccine) error {
 	return s.repo.UpdateOneVaccineByID(id, vaccine)
 }
 
-func (s *svcVaccine) GetAllVaccine() []model.Vaccine {
-	return s.repo.GetAllVaccine()
+func (s *svcVaccine) GetAllVaccines() []model.Vaccine {
+	return s.repo.GetAllVaccines()
 }
 
 func (s *svcVaccine) GetVaccineByID(id int) (model.Vaccine, error) {

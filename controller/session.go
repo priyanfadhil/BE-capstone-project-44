@@ -10,11 +10,11 @@ import (
 	"github.com/priyanfadhil/BE-capstone-project-44/model"
 )
 
-type EchoControllerSession struct {
+type SessionController struct {
 	svc domain.AdapterSession
 }
 
-func (ce *EchoControllerSession) CreateSessionController(c echo.Context) error {
+func (ce *SessionController) CreateSessionController(c echo.Context) error {
 	session := model.Session{}
 	c.Bind(&session)
 
@@ -31,7 +31,7 @@ func (ce *EchoControllerSession) CreateSessionController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoControllerSession) UpdateSessionController(c echo.Context) error {
+func (ce *SessionController) UpdateSessionController(c echo.Context) error {
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
 
@@ -50,7 +50,7 @@ func (ce *EchoControllerSession) UpdateSessionController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoControllerSession) DeleteSessionController(c echo.Context) error {
+func (ce *SessionController) DeleteSessionController(c echo.Context) error {
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
 
@@ -66,7 +66,7 @@ func (ce *EchoControllerSession) DeleteSessionController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoControllerSession) GetSessionController(c echo.Context) error {
+func (ce *SessionController) GetSessionController(c echo.Context) error {
 	fmt.Println("eksekusi handler")
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
@@ -84,7 +84,7 @@ func (ce *EchoControllerSession) GetSessionController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoControllerSession) GetSessionsController(c echo.Context) error {
+func (ce *SessionController) GetSessionsController(c echo.Context) error {
 	session := ce.svc.GetAllSessions()
 
 	return c.JSONPretty(http.StatusOK, map[string]interface{}{

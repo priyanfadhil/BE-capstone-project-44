@@ -12,16 +12,16 @@ import (
 	// "github.com/stretchr/testify/mock"
 )
 
-func TestCreateAdminController(t *testing.T) {
-	svc := MockAdminSvc{}
+func TestCreateSessionController(t *testing.T) {
+	svc := MockSessionSvc{}
 
-	svc.Mock.On("CreateAdmin", 1, mock.Anything).
+	svc.Mock.On("CreateSession", 1, mock.Anything).
 		Return(errors.New("new")).Once()
 
-	svc.Mock.On("CreateAdmin", 1, mock.Anything).
+	svc.Mock.On("CreateSession", 1, mock.Anything).
 		Return(nil).Once()
 
-	admController := AdminController{
+	sesiController := SessionController{
 		svc: &svc,
 	}
 
@@ -31,7 +31,7 @@ func TestCreateAdminController(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		admController.CreateAdminController(echoContext)
+		sesiController.CreateSessionController(echoContext)
 
 		assert.Equal(t, 500, w.Result().StatusCode)
 	})
@@ -42,22 +42,22 @@ func TestCreateAdminController(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		admController.CreateAdminController(echoContext)
+		sesiController.CreateSessionController(echoContext)
 
 		assert.Equal(t, 201, w.Result().StatusCode)
 	})
 }
 
-func TestGetAdminIDController(t *testing.T) {
-	svc := MockAdminSvc{}
+func TestGetSessionIDController(t *testing.T) {
+	svc := MockSessionSvc{}
 
-	svc.Mock.On("GetAdminyID", 1).
+	svc.Mock.On("GetSessionyID", 1).
 		Return(errors.New("new")).Once()
 
-	svc.Mock.On("GetAdminyID", 1).
+	svc.Mock.On("GetSessionyID", 1).
 		Return(nil).Once()
 
-	admController := AdminController{
+	sesiController := SessionController{
 		svc: &svc,
 	}
 
@@ -67,22 +67,22 @@ func TestGetAdminIDController(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		admController.GetAdminController(echoContext)
+		sesiController.GetSessionController(echoContext)
 
 		assert.Equal(t, 200, w.Result().StatusCode)
 	})
 }
 
-func TestGetAllAdminController(t *testing.T) {
-	svc := MockAdminSvc{}
+func TestGetAllSessionController(t *testing.T) {
+	svc := MockSessionSvc{}
 
-	svc.Mock.On("GetAllAdmin", mock.Anything).
+	svc.Mock.On("GetAllSession", mock.Anything).
 		Return(errors.New("new")).Once()
 
-	svc.Mock.On("GetAllAdmin", mock.Anything).
+	svc.Mock.On("GetAllSession", mock.Anything).
 		Return(nil).Once()
 
-	admController := AdminController{
+	sesiController := SessionController{
 		svc: &svc,
 	}
 
@@ -92,19 +92,19 @@ func TestGetAllAdminController(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		admController.GetAdminController(echoContext)
+		sesiController.GetSessionController(echoContext)
 
 		assert.Equal(t, 200, w.Result().StatusCode)
 	})
 }
 
-func TestUpdateAdminontroller(t *testing.T) {
-	svc := MockAdminSvc{}
+func TestUpdateSessionontroller(t *testing.T) {
+	svc := MockSessionSvc{}
 
-	svc.Mock.On("UpdateAdmin", 0, mock.Anything).
+	svc.Mock.On("UpdateSession", 0, mock.Anything).
 		Return(nil).Once()
 
-	admController := AdminController{
+	sesiController := SessionController{
 		svc: &svc,
 	}
 
@@ -114,19 +114,19 @@ func TestUpdateAdminontroller(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		admController.UpdateAdminController(echoContext)
+		sesiController.UpdateSessionController(echoContext)
 
 		assert.Equal(t, 200, w.Result().StatusCode)
 	})
 }
 
-func TestDeleteAdminController(t *testing.T) {
-	svc := MockAdminSvc{}
+func TestDeleteSessionController(t *testing.T) {
+	svc := MockSessionSvc{}
 
-	svc.Mock.On("DeleteAdmin", mock.Anything).
+	svc.Mock.On("DeleteSession", mock.Anything).
 		Return(nil).Once()
 
-	admController := AdminController{
+	sesiController := SessionController{
 		svc: &svc,
 	}
 
@@ -136,7 +136,7 @@ func TestDeleteAdminController(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		admController.DeleteAdminController(echoContext)
+		sesiController.DeleteSessionController(echoContext)
 
 		assert.Equal(t, 204, w.Result().StatusCode)
 	})

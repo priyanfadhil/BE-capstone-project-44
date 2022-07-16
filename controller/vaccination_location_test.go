@@ -12,16 +12,16 @@ import (
 	// "github.com/stretchr/testify/mock"
 )
 
-func TestCreateAdminController(t *testing.T) {
-	svc := MockAdminSvc{}
+func TestCreateVaccinationLocationController(t *testing.T) {
+	svc := MockVaccinationLocationSvc{}
 
-	svc.Mock.On("CreateAdmin", 1, mock.Anything).
+	svc.Mock.On("CreateVaccinationLocation", 1, mock.Anything).
 		Return(errors.New("new")).Once()
 
-	svc.Mock.On("CreateAdmin", 1, mock.Anything).
+	svc.Mock.On("CreateVaccinationLocation", 1, mock.Anything).
 		Return(nil).Once()
 
-	admController := AdminController{
+	admController := VaccinationLocationController{
 		svc: &svc,
 	}
 
@@ -31,7 +31,7 @@ func TestCreateAdminController(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		admController.CreateAdminController(echoContext)
+		admController.CreateVaccinationLocationController(echoContext)
 
 		assert.Equal(t, 500, w.Result().StatusCode)
 	})
@@ -42,22 +42,22 @@ func TestCreateAdminController(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		admController.CreateAdminController(echoContext)
+		admController.CreateVaccinationLocationController(echoContext)
 
 		assert.Equal(t, 201, w.Result().StatusCode)
 	})
 }
 
-func TestGetAdminIDController(t *testing.T) {
-	svc := MockAdminSvc{}
+func TestGetVaccinationLocationIDController(t *testing.T) {
+	svc := MockVaccinationLocationSvc{}
 
-	svc.Mock.On("GetAdminyID", 1).
+	svc.Mock.On("GetVaccinationLocationyID", 1).
 		Return(errors.New("new")).Once()
 
-	svc.Mock.On("GetAdminyID", 1).
+	svc.Mock.On("GetVaccinationLocationyID", 1).
 		Return(nil).Once()
 
-	admController := AdminController{
+	admController := VaccinationLocationController{
 		svc: &svc,
 	}
 
@@ -67,22 +67,22 @@ func TestGetAdminIDController(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		admController.GetAdminController(echoContext)
+		admController.GetVaccinationLocationController(echoContext)
 
 		assert.Equal(t, 200, w.Result().StatusCode)
 	})
 }
 
-func TestGetAllAdminController(t *testing.T) {
-	svc := MockAdminSvc{}
+func TestGetAllVaccinationLocationController(t *testing.T) {
+	svc := MockVaccinationLocationSvc{}
 
-	svc.Mock.On("GetAllAdmin", mock.Anything).
+	svc.Mock.On("GetAllVaccinationLocation", mock.Anything).
 		Return(errors.New("new")).Once()
 
-	svc.Mock.On("GetAllAdmin", mock.Anything).
+	svc.Mock.On("GetAllVaccinationLocation", mock.Anything).
 		Return(nil).Once()
 
-	admController := AdminController{
+	admController := VaccinationLocationController{
 		svc: &svc,
 	}
 
@@ -92,19 +92,19 @@ func TestGetAllAdminController(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		admController.GetAdminController(echoContext)
+		admController.GetVaccinationLocationController(echoContext)
 
 		assert.Equal(t, 200, w.Result().StatusCode)
 	})
 }
 
-func TestUpdateAdminontroller(t *testing.T) {
-	svc := MockAdminSvc{}
+func TestUpdateVaccinationLocationontroller(t *testing.T) {
+	svc := MockVaccinationLocationSvc{}
 
-	svc.Mock.On("UpdateAdmin", 0, mock.Anything).
+	svc.Mock.On("UpdateVaccinationLocation", 0, mock.Anything).
 		Return(nil).Once()
 
-	admController := AdminController{
+	admController := VaccinationLocationController{
 		svc: &svc,
 	}
 
@@ -114,19 +114,19 @@ func TestUpdateAdminontroller(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		admController.UpdateAdminController(echoContext)
+		admController.UpdateVaccinationLocationController(echoContext)
 
 		assert.Equal(t, 200, w.Result().StatusCode)
 	})
 }
 
-func TestDeleteAdminController(t *testing.T) {
-	svc := MockAdminSvc{}
+func TestDeleteVaccinationLocationController(t *testing.T) {
+	svc := MockVaccinationLocationSvc{}
 
-	svc.Mock.On("DeleteAdmin", mock.Anything).
+	svc.Mock.On("DeleteVaccinationLocation", mock.Anything).
 		Return(nil).Once()
 
-	admController := AdminController{
+	admController := VaccinationLocationController{
 		svc: &svc,
 	}
 
@@ -136,7 +136,7 @@ func TestDeleteAdminController(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		admController.DeleteAdminController(echoContext)
+		admController.DeleteVaccinationLocationController(echoContext)
 
 		assert.Equal(t, 204, w.Result().StatusCode)
 	})

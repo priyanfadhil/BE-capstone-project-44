@@ -85,7 +85,7 @@ func (ce *VaccineController) GetVaccineController(c echo.Context) error {
 }
 
 func (ce *VaccineController) GetAllVaccineController(c echo.Context) error {
-	vaccine := ce.svc.GetAllVaccine()
+	vaccine := ce.svc.GetAllVaccines()
 
 	return c.JSONPretty(http.StatusOK, map[string]interface{}{
 		"messages": "success",
