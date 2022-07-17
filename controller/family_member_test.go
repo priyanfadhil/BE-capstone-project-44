@@ -15,10 +15,10 @@ import (
 func TestCreateFamilyMemberController(t *testing.T) {
 	svc := MockFamilyMemberSvc{}
 
-	svc.Mock.On("CreateFamilyMember", 0, mock.Anything).
+	svc.Mock.On("CreateFamilyMember", mock.Anything).
 		Return(errors.New("new")).Once()
 
-	svc.Mock.On("CreateFamilyMember", 0, mock.Anything).
+	svc.Mock.On("CreateFamilyMember", mock.Anything).
 		Return(nil).Once()
 
 	familyController := FamilyMemberController{
@@ -51,10 +51,10 @@ func TestCreateFamilyMemberController(t *testing.T) {
 func TestGetFamilyMemberyIDController(t *testing.T) {
 	svc := MockFamilyMemberSvc{}
 
-	svc.Mock.On("GetFamilyMemberyID", 1).
+	svc.Mock.On("GetFamilyMemberyID", mock.Anything).
 		Return(errors.New("new")).Once()
 
-	svc.Mock.On("GetFamilyMemberyID", 1).
+	svc.Mock.On("GetFamilyMemberyID", mock.Anything).
 		Return(nil).Once()
 
 	familyController := FamilyMemberController{
@@ -101,7 +101,7 @@ func TestGetAllFamilyMemberController(t *testing.T) {
 func TestUpdateFamilyMemberontroller(t *testing.T) {
 	svc := MockFamilyMemberSvc{}
 
-	svc.Mock.On("UpdateFamilyMember", 0, mock.Anything).
+	svc.Mock.On("UpdateFamilyMember", mock.Anything).
 		Return(nil).Once()
 
 	familyController := FamilyMemberController{

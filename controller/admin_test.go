@@ -15,10 +15,10 @@ import (
 func TestCreateAdminController(t *testing.T) {
 	svc := MockAdminSvc{}
 
-	svc.Mock.On("CreateAdmin", 1, mock.Anything).
+	svc.Mock.On("CreateAdmin", mock.Anything).
 		Return(errors.New("new")).Once()
 
-	svc.Mock.On("CreateAdmin", 1, mock.Anything).
+	svc.Mock.On("CreateAdmin", mock.Anything).
 		Return(nil).Once()
 
 	admController := AdminController{
@@ -51,10 +51,10 @@ func TestCreateAdminController(t *testing.T) {
 func TestGetAdminIDController(t *testing.T) {
 	svc := MockAdminSvc{}
 
-	svc.Mock.On("GetAdminyID", 1).
+	svc.Mock.On("GetAdminyID", mock.Anything).
 		Return(errors.New("new")).Once()
 
-	svc.Mock.On("GetAdminyID", 1).
+	svc.Mock.On("GetAdminyID", mock.Anything).
 		Return(nil).Once()
 
 	admController := AdminController{
@@ -101,7 +101,7 @@ func TestGetAllAdminController(t *testing.T) {
 func TestUpdateAdminontroller(t *testing.T) {
 	svc := MockAdminSvc{}
 
-	svc.Mock.On("UpdateAdmin", 0, mock.Anything).
+	svc.Mock.On("UpdateAdmin", mock.Anything).
 		Return(nil).Once()
 
 	admController := AdminController{
