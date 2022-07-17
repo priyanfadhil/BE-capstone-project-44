@@ -12,54 +12,54 @@ import (
 	"gorm.io/gorm"
 )
 
-func TestGetOneVaccines(t *testing.T) {
+func TestGetOneUser(t *testing.T) {
 	dbMock, fMock, _ := sqlmock.New()
 	db, _ := gorm.Open(mysql.Dialector{&mysql.Config{
 		Conn:                      dbMock,
 		SkipInitializeWithVersion: true,
 	},
 	})
-	repo := NewVaccineMysqlRepository(db)
+	repo := UserMysqlRepository(db)
 	defer dbMock.Close()
 
-	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `vaccines` WHERE `vaccines`.`deleted_at` IS NULL")).
-		WillReturnRows(sqlmock.NewRows([]string{"id", "name"}).
-			AddRow(1, "moderna"))
+	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `users` WHERE `users`.`deleted_at` IS NULL")).
+		WillReturnRows(sqlmock.NewRows([]string{"id", "nik", "name", "email", "phone", "password"}).
+			AddRow(1, "1671052285101234", "mia", "mia@gmail.com","087758960520", "lebahganteng"))
 
-	res := repo.GetAllVaccines()
-	assert.Equal(t, res[0].Name,"moderna")
+	res := repo.GetAllUsers()
+	assert.Equal(t, res[0].NIK,"1671052285101234" )
 	assert.Len(t, res, 1)
 }
 
-func TestGetAllVaccines(t *testing.T) {
+func TestGetAllUsers(t *testing.T) {
 	dbMock, fMock, _ := sqlmock.New()
 	db, _ := gorm.Open(mysql.Dialector{&mysql.Config{
 		Conn:                      dbMock,
 		SkipInitializeWithVersion: true,
 	},
 	})
-	repo := NewVaccineMysqlRepository(db)
+	repo := UserMysqlRepository(db)
 	defer dbMock.Close()
 
-	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `vaccines`")).
-		WillReturnRows(sqlmock.NewRows([]string{"id", "name"}).
-			AddRow(1, "moderna").
-			AddRow(2, "moderna").
-			AddRow(3, "moderna"))
+	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `users`")).
+		WillReturnRows(sqlmock.NewRows([]string{"id", "nik", "name", "email", "phone", "password"}).
+			AddRow(1, "1671052285101234", "mia", "mia@gmail.com","087758960520", "lebahganteng").
+			AddRow(2, "1671052285101298", "vanya", "vanya@gmail.com","081358960560", "boeing737").
+			AddRow(3, "1671052285101297", "lusi", "lusi@gmail.com","085458960590", "grobe"))
 
-	res := repo.GetAllVaccines()
-	assert.Equal(t, res[0].Name,"moderna")
+	res := repo.GetAllUsers()
+	assert.Equal(t, res[0].NIK,"1671052285101234")
 	assert.Len(t, res, 3)
 }
 
-func TestDeleteVaccineByID(t *testing.T) {
+func TestDeleteUserByID(t *testing.T) {
 	dbMock, fMock, _ := sqlmock.New()
 	db, _ := gorm.Open(mysql.Dialector{&mysql.Config{
 		Conn:                      dbMock,
 		SkipInitializeWithVersion: true,
 	},
 	})
-	repo := NewVaccineMysqlRepository(db)
+	repo := UserMysqlRepository(db)
 	defer dbMock.Close()
 
 	fMock.ExpectBegin()
@@ -68,29 +68,29 @@ func TestDeleteVaccineByID(t *testing.T) {
 		WillReturnResult(driver.RowsAffected(1))
 	fMock.ExpectCommit()
 
-	err := repo.DeleteVaccineByID(1)
+	err := repo.DeleteUserByID(1)
 	assert.NoError(t, err)
 	assert.True(t, true)
 }
 
-func TestUpdateVaccineByID(t *testing.T) {
+func TestUpdateUserByID(t *testing.T) {
 	dbMock, fMock, _ := sqlmock.New()
 	db, _ := gorm.Open(mysql.Dialector{&mysql.Config{
 		Conn:                      dbMock,
 		SkipInitializeWithVersion: true,
 	},
 	})
-	repo := NewVaccineMysqlRepository(db)
+	repo := UserMysqlRepository(db)
 	defer dbMock.Close()
 
 	fMock.ExpectBegin()
 	fMock.ExpectExec(regexp.QuoteMeta("UPDATE")).
-		WithArgs("moderna", 1).
+		WithArgs("1671052285101234", 1).
 		WillReturnResult(sqlmock.NewResult(0, 1))
 	fMock.ExpectCommit()
 
-	err := repo.UpdateOneVaccineByID(1, model.Vaccine{
-		Name: "moderna",
+	err := repo.UpdateOneUserByID(1, model.User{
+		NIK: "1671052285101234",
 	})
 	assert.NoError(t, err)
 	assert.True(t, true)

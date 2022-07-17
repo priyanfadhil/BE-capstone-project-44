@@ -85,7 +85,7 @@ func TestUpdateFamilyMemberByID(t *testing.T) {
 
 	fMock.ExpectBegin()
 	fMock.ExpectExec(regexp.QuoteMeta("UPDATE")).
-		WithArgs(true, 1).
+		WithArgs("1234567890123456", 1).
 		WillReturnResult(sqlmock.NewResult(0, 1))
 	fMock.ExpectCommit()
 

@@ -85,7 +85,7 @@ func TestUpdateAdminByID(t *testing.T) {
 
 	fMock.ExpectBegin()
 	fMock.ExpectExec(regexp.QuoteMeta("UPDATE")).
-		WithArgs(true, 1).
+		WithArgs("mia@gmail.com", 1).
 		WillReturnResult(sqlmock.NewResult(0, 1))
 	fMock.ExpectCommit()
 

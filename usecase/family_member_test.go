@@ -9,49 +9,55 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestUpdateUser(t *testing.T) {
+func TestUpdateFamilyMember(t *testing.T) {
 	testTable := []struct {
-		name, Name, NIK, Email, Phone, Password       	string
-		update                                  		func(id int, rent model.User) error
-		noError                                 		bool
-		id												int
+		name, NIK, Relationship, Name, Birthdate, Gender, Phone, Address, Booking       string
+		update                                   										func(id int, rent model.FamilyMember) error
+		noError                                  										bool
+		id, UserID 										int
 	}{
 		{
 			name: "success",
-			update: func(id int, rent model.User) error {
+			update: func(id int, rent model.FamilyMember) error {
 				return nil
 			},
 			noError:         true,
-			id:              1,
-			NIK:			"1671052285101234",
-			Name:			"mia",
-			Email:			"mia@gmail.com",
-			Phone: 			"087758960520"	,
-			Password:       "lebahganteng",
+			id: 1,
+			UserID: 1,
+			NIK: "1234567890123456",
+			Relationship: "anak",
+			Name: "ikhsan",
+			Birthdate: "2000-26-05",
+			Gender: "pr",
+			Phone: "08939495169",
+			Address: "jln. maguwo",
 		},
 		{
 			name: "error internal",
-			update: func(id int, rent model.User) error {
+			update: func(id int, rent model.FamilyMember) error {
 				return errors.New("error")
 			},
 			noError:         false,
-			id:              2,
-			NIK:			"1671052285101211",
-			Name:			"song joong ki",
-			Email:			"sj@gmail.com",
-			Phone: 			"087758960580"	,
-			Password:       "cuteboy",
+			id: 0,
+			UserID: 0,
+			NIK: "1234567890123430",
+			Relationship: "ayah",
+			Name: "sule",
+			Birthdate: "1990-26-05",
+			Gender: "lk",
+			Phone: "08939495179",
+			Address: "jln. maguwo",
 		},
 	}
-	repoUser := RepoMockUser{}
 	repoFamilyMember := RepoMockFamilyMember{}
-	
+
+
 	for _, v := range testTable {
 		t.Run(v.name, func(t *testing.T) {
-			repoUser.update = v.update
+			repoFamilyMember.update = v.update
 
-			svc := User(&repoUser, &repoFamilyMember, config.Config{})
-			err := svc.UpdateUser(v.id, v.idToken, model.User{})
+			svc := FamilyMember(&repoFamilyMember, config.Config{})
+			err := svc.UpdateFamilyMember(v.id, model.FamilyMember{})
 			if v.noError {
 				assert.NoError(t, err)
 			}
@@ -59,7 +65,7 @@ func TestUpdateUser(t *testing.T) {
 	}
 }
 
-func TestDeleteUser(t *testing.T) {
+func TestDeleteFamilyMember(t *testing.T) {
 	testTable := []struct {
 		name    string
 		delete  func(id int) error
@@ -81,19 +87,18 @@ func TestDeleteUser(t *testing.T) {
 				return errors.New("error")
 			},
 			noError: false,
-			id:      2,
+			id:      1,
 		},
 	}
-	repoUser := RepoMockUser{}
 	repoFamilyMember := RepoMockFamilyMember{}
-
+	
 
 	for _, v := range testTable {
 		t.Run(v.name, func(t *testing.T) {
-			repoUser.delete = v.delete
+			repoFamilyMember.delete = v.delete
 
-			svc := User(&repoUser, &repoFamilyMember, config.Config{})
-			err := svc.DeleteUserByID(v.id)
+			svc := FamilyMember(&repoFamilyMember, config.Config{})
+			err := svc.DeleteFamilyMemberByID(v.id)
 			if v.noError {
 				assert.NoError(t, err)
 			}
@@ -101,7 +106,7 @@ func TestDeleteUser(t *testing.T) {
 	}
 }
 
-// func TestGetOneBooking(t *testing.T) {
+// func TestGetOneFamilyMembering(t *testing.T) {
 // 	book := model.Booking{
 // 		ID:              1,
 // 		FamilyID:        1,

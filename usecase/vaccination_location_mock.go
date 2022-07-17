@@ -18,7 +18,7 @@ func (r *RepoMockVaccinationLocation) GetAllVaccinationLocations() []model.Vacci
 func (r *RepoMockVaccinationLocation) GetOneVaccinationLocationByID(id int) (VaccinationLocation model.VaccinationLocation, err error) {
 	return r.getone(id)
 }
-func (r *RepoMockVaccinationLocation) UpdateOneVaccinationLocationByID(id int, VaccinationLocation model.VaccinationLocation) error {
+func (r *RepoMockVaccinationLocation) UpdateOneVaccinationLocationByID(id int, vaccinationlocation model.VaccinationLocation) error {
 	return r.update(id, vaccinationlocation)
 }
 func (r *RepoMockVaccinationLocation) DeleteVaccinationLocationByID(id int) error {

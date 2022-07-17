@@ -24,12 +24,13 @@ func TestGetOneSessions(t *testing.T) {
 
 	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `sessions` WHERE `sessions`.`deleted_at` IS NULL")).
 		WillReturnRows(sqlmock.NewRows([]string{"id", "location_id", "vaccine_id", "name", "date", "start", "end", "status", "stock_vaccine"}).
-			AddRow(1, 1, 1, 1, true))
+			AddRow(1, 1, 1, "moderna", "2022-16-07 00:00:00", "2022-16-07 00:00:00", "2022-17-07 00:00:00", "", ""))
 
 	res := repo.GetAllSessions()
-	assert.Equal(t, res[0].FamilyID, 1)
+	assert.Equal(t, res[0].VaccineID, 1)
 	assert.Len(t, res, 1)
 }
+
 
 func TestGetAllSessions(t *testing.T) {
 	dbMock, fMock, _ := sqlmock.New()
@@ -42,13 +43,13 @@ func TestGetAllSessions(t *testing.T) {
 	defer dbMock.Close()
 
 	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `sessions`")).
-		WillReturnRows(sqlmock.NewRows([]string{"id", "family_id", "session_id", "status_vaccine_id", "status"}).
-			AddRow(1, 1, 1, 1, true).
-			AddRow(2, 2, 1, 1, true).
-			AddRow(3, 3, 1, 1, true))
+		WillReturnRows(sqlmock.NewRows([]string{"id", "location_id", "vaccine_id", "name", "date", "start", "end", "status", "stock_vaccine"}).
+			AddRow(1, 1, 1, "moderna", "2022-16-07 00:00:00", "2022-16-07 00:00:00", "2022-17-07 00:00:00", "", "").
+			AddRow(2, 2, 2, "sinovac", "2022-19-07 00:00:00", "2022-19-07 00:00:00", "2022-20-07 00:00:00", "", "").
+			AddRow(3, 3, 3, "astrazeneca", "2022-22-07 00:00:00", "2022-22-07 00:00:00", "2022-23-07 00:00:00", "", ""))
 
 	res := repo.GetAllSessions()
-	assert.Equal(t, res[0].FamilyID, 1)
+	assert.Equal(t, res[0].VaccineID, 1)
 	assert.Len(t, res, 3)
 }
 
@@ -85,12 +86,12 @@ func TestUpdateSessionByID(t *testing.T) {
 
 	fMock.ExpectBegin()
 	fMock.ExpectExec(regexp.QuoteMeta("UPDATE")).
-		WithArgs(true, 1).
+		WithArgs("moderna", 1).
 		WillReturnResult(sqlmock.NewResult(0, 1))
 	fMock.ExpectCommit()
 
 	err := repo.UpdateOneSessionByID(1, model.Session{
-		Done: true,
+		Name: "moderna",
 	})
 	assert.NoError(t, err)
 	assert.True(t, true)

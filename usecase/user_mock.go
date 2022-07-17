@@ -4,12 +4,12 @@ import "github.com/priyanfadhil/BE-capstone-project-44/model"
 
 type RepoMockUser struct {
 	update func(id int, user model.User) error
-	create func(user model.User) error
+	create func(user model.User) (model.User, error)
 	delete func(id int) error
 	getone func(id int) (user model.User, err error)
 }
 
-func (r *RepoMockUser) CreateUsers(user model.User) error {
+func (r *RepoMockUser) CreateUsers(user model.User) (model.User, error) {
 	return r.create(user)
 }
 func (r *RepoMockUser) GetAllUsers() []model.User {
