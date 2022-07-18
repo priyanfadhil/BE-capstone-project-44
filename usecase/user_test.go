@@ -51,7 +51,7 @@ func TestUpdateUser(t *testing.T) {
 			repoUser.update = v.update
 
 			svc := User(&repoUser, &repoFamilyMember, config.Config{})
-			err := svc.UpdateUser(v.id, v.idToken, model.User{})
+			err := svc.UpdateUser(v.id, user model.User)
 			if v.noError {
 				assert.NoError(t, err)
 			}

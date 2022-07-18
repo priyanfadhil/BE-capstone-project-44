@@ -10,7 +10,7 @@ type MockSessionSvc struct {
 }
 
 func (m *MockSessionSvc) CreateSession(session model.Session) error {
-	arg := m.Mock.Called(session, session)
+	arg := m.Mock.Called(session)
 
 	// if arg.Get(0) == nil {
 	// 	return nil

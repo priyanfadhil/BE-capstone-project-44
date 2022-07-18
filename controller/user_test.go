@@ -15,10 +15,10 @@ import (
 func TestCreateUserController(t *testing.T) {
 	svc := MockUserSvc{}
 
-	svc.Mock.On("CreateUser", 0, mock.Anything).
+	svc.Mock.On("CreateUser", mock.Anything).
 		Return(errors.New("new")).Once()
 
-	svc.Mock.On("CreateUser", 0, mock.Anything).
+	svc.Mock.On("CreateUser", mock.Anything).
 		Return(nil).Once()
 
 	usrController := UserController{
@@ -33,7 +33,7 @@ func TestCreateUserController(t *testing.T) {
 
 		usrController.CreateUserController(echoContext)
 
-		assert.Equal(t, 500, w.Result().StatusCode)
+		assert.Equal(t, 400, w.Result().StatusCode)
 	})
 
 	t.Run("success", func(t *testing.T) {

@@ -24,7 +24,7 @@ func TestGetOneSessions(t *testing.T) {
 
 	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `sessions` WHERE `sessions`.`deleted_at` IS NULL")).
 		WillReturnRows(sqlmock.NewRows([]string{"id", "location_id", "vaccine_id", "name", "date", "start", "end", "status", "stock_vaccine"}).
-			AddRow(1, 1, 1, "moderna", "2022-16-07 00:00:00", "2022-16-07 00:00:00", "2022-17-07 00:00:00", "", ""))
+			AddRow(1, 1, 1, "moderna", "2022-16-07 00:00:00", "2022-16-07 00:00:00", "2022-17-07 00:00:00", "aktif", "200"))
 
 	res := repo.GetAllSessions()
 	assert.Equal(t, res[0].VaccineID, 1)

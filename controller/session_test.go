@@ -15,10 +15,10 @@ import (
 func TestCreateSessionController(t *testing.T) {
 	svc := MockSessionSvc{}
 
-	svc.Mock.On("CreateSession", 1, mock.Anything).
+	svc.Mock.On("CreateSession", mock.Anything).
 		Return(errors.New("new")).Once()
 
-	svc.Mock.On("CreateSession", 1, mock.Anything).
+	svc.Mock.On("CreateSession", mock.Anything).
 		Return(nil).Once()
 
 	sesiController := SessionController{

@@ -22,7 +22,7 @@ func TestGetOneVaccinationLocations(t *testing.T) {
 	repo := VaccinationLocationMysqlRepository(db)
 	defer dbMock.Close()
 
-	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `bookings` WHERE `bookings`.`deleted_at` IS NULL")).
+	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `vaccination_locations` WHERE `vaccination_locations`.`deleted_at` IS NULL")).
 		WillReturnRows(sqlmock.NewRows([]string{"id", "created_by", "session_id", "name", "address"}).
 			AddRow(1, 1, 1, "moderna", "jln. maguwo"))
 
@@ -41,7 +41,7 @@ func TestGetAllVaccinationLocationss(t *testing.T) {
 	repo := VaccinationLocationMysqlRepository(db)
 	defer dbMock.Close()
 
-	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `bookings`")).
+	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `vaccination_locations`")).
 		WillReturnRows(sqlmock.NewRows([]string{"id", "created_by", "session_id", "name", "address"}).
 			AddRow(1, 1, 1, "moderna", "jln. maguwo").
 			AddRow(2, 2, 2, "astrazeneca", "jln. saturnus").

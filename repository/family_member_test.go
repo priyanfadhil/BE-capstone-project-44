@@ -22,7 +22,7 @@ func TestGetOneFamilyMembers(t *testing.T) {
 	repo := FamilyMemberMysqlRepository(db)
 	defer dbMock.Close()
 
-	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `bookings` WHERE `bookings`.`deleted_at` IS NULL")).
+	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `family_members` WHERE `family_members`.`deleted_at` IS NULL")).
 		WillReturnRows(sqlmock.NewRows([]string{"id", "user_id", "nik", "relationship", "name", "birthdate", "gender", "phone", "address"}).
 			AddRow(1, 1, "1234567890123456", "anak", "ikhsan", "2000-26-05", "pr", "08939495169", "jln. maguwo"))
 
@@ -41,7 +41,7 @@ func TestGetAllFamilyMembers(t *testing.T) {
 	repo := FamilyMemberMysqlRepository(db)
 	defer dbMock.Close()
 
-	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `bookings`")).
+	fMock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `family_members`")).
 		WillReturnRows(sqlmock.NewRows([]string{"id", "user_id", "nik", "relationship", "name", "birthdate", "gender", "phone", "address"}).
 			AddRow(1, 1, "1234567890123456", "anak", "ikhsan", "2000-26-05", "pr", "08939495169", "jln. maguwo").
 			AddRow(2, 2, "1234567890123430", "ayah", "sule", "1990-26-05", "lk", "08939495179", "jln. maguwo").
