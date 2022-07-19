@@ -33,7 +33,7 @@ func TestCreateBookingController(t *testing.T) {
 
 		usrController.CreateBookingController(echoContext)
 
-		assert.Equal(t, 500, w.Result().StatusCode)
+		assert.Equal(t, 400, w.Result().StatusCode)
 	})
 
 	t.Run("success", func(t *testing.T) {
