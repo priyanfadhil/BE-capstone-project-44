@@ -26,7 +26,7 @@ func InitConfiguration() Config {
 }
 
 func GetOrDefault(envKey, defaultValue string) string {
-	// cek env
+	// cek env 1
 	// untuk mengisi "export SERVER_ADDRESS=0.0.0.0:8888"
 	// untuk menghapus "unset SERVER_ADDRESS"
 	if val, exist := os.LookupEnv(envKey); exist {
