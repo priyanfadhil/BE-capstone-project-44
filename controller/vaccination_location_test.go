@@ -15,10 +15,10 @@ import (
 func TestCreateVaccinationLocationController(t *testing.T) {
 	svc := MockVaccinationLocationSvc{}
 
-	svc.Mock.On("CreateVaccinationLocation", 1, mock.Anything).
+	svc.Mock.On("CreateVaccinationLocation", mock.Anything).
 		Return(errors.New("new")).Once()
 
-	svc.Mock.On("CreateVaccinationLocation", 1, mock.Anything).
+	svc.Mock.On("CreateVaccinationLocation", mock.Anything).
 		Return(nil).Once()
 
 	admController := VaccinationLocationController{
@@ -101,7 +101,7 @@ func TestGetAllVaccinationLocationController(t *testing.T) {
 func TestUpdateVaccinationLocationontroller(t *testing.T) {
 	svc := MockVaccinationLocationSvc{}
 
-	svc.Mock.On("UpdateVaccinationLocation", 0, mock.Anything).
+	svc.Mock.On("UpdateVaccinationLocation", mock.Anything).
 		Return(nil).Once()
 
 	admController := VaccinationLocationController{

@@ -15,10 +15,10 @@ import (
 func TestCreateVaccineController(t *testing.T) {
 	svc := MockVaccineSvc{}
 
-	svc.Mock.On("CreateVaccine", 0, mock.Anything).
+	svc.Mock.On("CreateVaccine", mock.Anything).
 		Return(errors.New("new")).Once()
 
-	svc.Mock.On("CreateVaccine", 0, mock.Anything).
+	svc.Mock.On("CreateVaccine", mock.Anything).
 		Return(nil).Once()
 
 	vaccineController := VaccineController{
@@ -101,7 +101,7 @@ func TestGetAllVaccineController(t *testing.T) {
 func TestUpdateVaccineontroller(t *testing.T) {
 	svc := MockVaccineSvc{}
 
-	svc.Mock.On("UpdateVaccine", 0, mock.Anything).
+	svc.Mock.On("UpdateVaccine", mock.Anything).
 		Return(nil).Once()
 
 	vaccineController := VaccineController{
