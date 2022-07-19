@@ -36,8 +36,7 @@ jobs:
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
         script: |
-          cd BE-capstone-project-44
-          docker-compose down
+          cd ~/BE-capstone-project-44
           git pull origin main
-          docker-compose build
-          docker-compose up
+          docker-compose down
+          docker-compose up --build -d
