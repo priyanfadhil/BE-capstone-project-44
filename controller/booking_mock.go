@@ -12,13 +12,6 @@ type MockBookingSvc struct {
 func (m *MockBookingSvc) CreateBooking(session int, booking model.Booking) error {
 	arg := m.Mock.Called(session, booking)
 
-	// if arg.Get(0) == nil {
-	// 	return nil
-	// } else {
-	// 	return arg.Error(0)
-	// }
-	// //return ret.Error(0)
-
 	return arg.Error(0)
 }
 func (m *MockBookingSvc) UpdateBooking(id int, booking model.Booking) error {
